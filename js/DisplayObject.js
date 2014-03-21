@@ -6,4 +6,5 @@ var DisplayObject = function()
 	this.y = 0;
 	this.rotation = 0;
 	this.opacity = 0;
+	this.visible = true;
 }
