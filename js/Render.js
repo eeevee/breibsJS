@@ -1,0 +1,20 @@
+var Render = function(context)
+{
+	this.context = context;
+
+	this.clear = function() {
+		this.context.clearRect(0, 0, this.context.width, this.context.height);
+	}
+
+	this.drawScene = function(scene) {
+		this.clear();
+		this.context.save();
+		for (var i = 0; i < scene.childs.length; i++) {
+			var displayObject = scene.childs[i];
+			if (displayObject.visible) {
+				this.context.drawImage(displayObject.image, displayObject.x, displayObject.y);
+			}
+		}
+		this.context.restore();
+	}
+}
