@@ -25,6 +25,8 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		this.rootScene = new Scene('root');
 		this.currentScene = this.rootScene;
 		this.addScene(this.rootScene);
+		this.canvas = new Surface(this.gameWidth, this.gameHeight);
+		this.render = new Render(this.canvas.context);
 	};
 	
 	this.preloadAsset = function(pathToAsset) {
