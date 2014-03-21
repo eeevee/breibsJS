@@ -30,15 +30,20 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 	
 	this.preloadAsset = function(pathToAsset) {
-		//get the asset type and start load
-		//dispatch event when load finished, adn add to the assets list
-		assets.push(pathToAsset);
+		var img = new Image();
+		img.src = pathToAsset;
+		img.id = pathToAsset;
+		img.addEventListener('load', this.imageLoadHandler.bind(this));
+	};
+
+	this.imageLoadHandler = function(e) {
+		this.assets[e.srcElement.id] = e.srcElement;
+		this.dispatchEvent(new Event('load'));
 	};
 
 	this.loadAsset = function(pathToAsset) {
 		//get the asset type and start load
 		//add to list event the asset not finish load
-		assets.push(pathToAsset);
 	};
 
 	this.addScene = function(scene) {
