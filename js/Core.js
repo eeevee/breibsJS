@@ -27,6 +27,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		this.addScene(this.rootScene);
 		this.canvas = new Surface(this.gameWidth, this.gameHeight);
 		this.render = new Render(this.canvas.context);
+		this.interval = setTimeout(this.tick.bind(this), 1000 / this.gameFPS);
 	};
 	
 	this.preloadAsset = function(pathToAsset) {
@@ -65,6 +66,8 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		}
 	};
 
-	//start
-	this.init();
+	this.tick = function() {
+		this.render.drawScene(this.currentScene);
+		this.interval = setTimeout(this.tick.bind(this), 1000 / this.gameFPS);
+	};
 }
