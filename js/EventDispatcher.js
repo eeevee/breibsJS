@@ -2,7 +2,7 @@ var EventDispatcher = function()
 {
     this._listeners = {};
 
-    this.addListener = function(type, listener){
+    this.addEventListener = function(type, listener){
         if (typeof this._listeners[type] == "undefined"){
             this._listeners[type] = [];
         }
@@ -30,7 +30,7 @@ var EventDispatcher = function()
         }
     };
 
-    this.removeListener = function(type, listener){
+    this.removeEventListener = function(type, listener){
         if (this._listeners[type] instanceof Array){
             var listeners = this._listeners[type];
             for (var i=0, len=listeners.length; i < len; i++){
