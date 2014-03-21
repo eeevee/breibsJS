@@ -3,12 +3,17 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	EventDispatcher.call(this);
 
 	//PRIVATE VARS
-	var assets = [];
 	var scenes = [];
 
 	//PUBLIC VARS
+	this.assets = {};
 	this.rootScene;
 	this.currentScene;
+	this.canvas;
+	this.gameWidth = gameWidth;
+	this.gameHeight = gameHeight;
+	this.gameFPS = gameFPS;
+	this.render;
 
 	//PRIVATE FUNCTIONS
 	var getAssetType = function(pathToAsset) {
