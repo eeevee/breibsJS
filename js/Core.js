@@ -14,6 +14,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	this.gameHeight = gameHeight;
 	this.gameFPS = gameFPS;
 	this.render;
+	this.keyboard;
 
 	//PRIVATE FUNCTIONS
 	var getAssetType = function(pathToAsset) {
@@ -27,6 +28,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		this.addScene(this.rootScene);
 		this.canvas = new Surface(this.gameWidth, this.gameHeight);
 		this.render = new Render(this.canvas.context);
+		this.keyboard = new Keyboard();
 		this.interval = setTimeout(this.tick.bind(this), 1000 / this.gameFPS);
 	};
 	
