@@ -8,6 +8,7 @@ var Render = function(context)
 
 	this.drawScene = function(scene) {
 		this.clear();
+		if (!scene) return;
 		for (var i = 0; i < scene.childs.length; i++) {
 			var displayObject = scene.childs[i];
 			if (displayObject.visible) {
