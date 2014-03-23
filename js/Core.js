@@ -6,6 +6,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	var scenes = [];
 
 	//PUBLIC VARS
+	this.preloadAssetsQueue = [];
 	this.assets = {};
 	this.rootScene;
 	this.currentScene;
@@ -39,12 +40,25 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		var img = new Image();
 		img.src = pathToAsset;
 		img.id = pathToAsset;
+		this.preloadAssetsQueue.push(img);
 		img.addEventListener('load', this.imageLoadHandler.bind(this));
 	};
 
 	this.imageLoadHandler = function(e) {
 		this.assets[e.srcElement.id] = e.srcElement;
-		this.dispatchEvent(new Event('load'));
+		this.removeFromPreloadQueue(e.srcElement);
+		if (this.preloadAssetsQueue.length == 0) {
+			this.dispatchEvent(new Event('load'));
+		}
+	};
+
+	this.removeFromPreloadQueue = function(el) {
+		for (var i = 0; i < this.preloadAssetsQueue.length; i++) {
+			if (el === this.preloadAssetsQueue[i]) {
+				this.preloadAssetsQueue.splice(i, 1);
+				break;
+			}
+		}
 	};
 
 	this.loadAsset = function(pathToAsset) {
