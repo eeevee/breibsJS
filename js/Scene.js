@@ -19,5 +19,9 @@ var Scene = function(name)
 		if (objIndex == -1) throw new SceneException('Child not found');
 		this.childs.splice(objIndex, 1);
 		this.childs.splice(index, 0, displayObject);
-	}
+	};
+
+	this.getChildIndex = function(displayObject) {
+		return this.childs.indexOf(displayObject);
+	};
 }
