@@ -54,3 +54,35 @@ asyncTest("When I preload a image, when the image load finished, i need to retri
 	});
 	core.preloadAsset('../img/wizard_evil.png');
 });
+
+module("Keyboard", {
+	setup: function() {
+		core = new Core();
+		core.init();
+		scene1 = new Scene('scene1');
+		core.addScene(scene1);
+	}, teardown: function() {
+
+	}
+});
+
+test("When the user press a key, I need to know if the key is pressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['left'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['left']);
+});
+
+test("When the user release a key, I need to know if the key is unpressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['left'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['left']);
+	var evtUp = new KeyboardEvent('keyup');
+	delete evtUp.keyCode;
+	evtUp.keyCode = Keyboard.KEY_CODES['left'];
+	window.dispatchEvent(evtUp);
+	ok(!Keyboard.pressedKeys['left']);
+});
