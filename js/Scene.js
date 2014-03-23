@@ -12,4 +12,12 @@ var Scene = function(name)
 	this.addChild = function(displayObject) {
 		this.childs.push(displayObject);
 	};
+
+	this.setChildIndex = function(displayObject, index) {
+		if (index >= this.childs.length) throw new Error('Index out of bounds');
+		var objIndex = this.childs.indexOf(displayObject);
+		if (objIndex == -1) throw new SceneException('Child not found');
+		this.childs.splice(objIndex, 1);
+		this.childs.splice(index, 0, displayObject);
+	}
 }
