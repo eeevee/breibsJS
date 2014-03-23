@@ -30,6 +30,9 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		this.render = new Render(this.canvas.context);
 		this.keyboard = new Keyboard();
 		this.interval = setTimeout(this.tick.bind(this), 1000 / this.gameFPS);
+
+		window.addEventListener('keydown', this.keyboardHandler.bind(this), false);
+		window.addEventListener('keyup', this.keyboardHandler.bind(this), false);
 	};
 	
 	this.preloadAsset = function(pathToAsset) {
@@ -72,5 +75,9 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		this.render.drawScene(this.currentScene);
 		this.interval = setTimeout(this.tick.bind(this), 1000 / this.gameFPS);
 		this.dispatchEvent(new Event('enterframe'));
+	};
+
+	this.keyboardHandler = function(e) {
+		this.dispatchEvent(e);
 	};
 }
