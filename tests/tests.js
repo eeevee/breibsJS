@@ -59,8 +59,6 @@ module("Keyboard", {
 	setup: function() {
 		core = new Core();
 		core.init();
-		scene1 = new Scene('scene1');
-		core.addScene(scene1);
 	}, teardown: function() {
 
 	}
@@ -85,4 +83,80 @@ test("When the user release a key, I need to know if the key is unpressed", func
 	evtUp.keyCode = Keyboard.KEY_CODES['left'];
 	window.dispatchEvent(evtUp);
 	ok(!Keyboard.pressedKeys['left']);
+});
+
+var sprite1;
+var sprite2;
+var sprite3;
+var sprite4;
+
+module("Scene", {
+	setup: function() {
+		core = new Core();
+		core.init();
+		sprite1 = new Sprite(1,1);
+		sprite1.visible = false;
+		sprite2 = new Sprite(1,1);
+		sprite2.visible = false;
+		sprite3 = new Sprite(1,1);
+		sprite3.visible = false;
+		sprite4 = new Sprite(1,1);
+		sprite4.visible = false;
+		core.rootScene.addChild(sprite1);
+		core.rootScene.addChild(sprite2);
+		core.rootScene.addChild(sprite3);
+		core.rootScene.addChild(sprite4);
+	}, teardown: function() {
+
+	}
+});
+
+test("When I set a index to a scene child, if it is a valid index, the object index must change", function() {
+	core.rootScene.setChildIndex(sprite2, 2);
+	ok(core.rootScene.getChildIndex(sprite2) == 2);
+});
+
+test("When I set a index to a scene child, if it is a valid index, the previous objects index don't must change", function() {
+	core.rootScene.setChildIndex(sprite2, 2);
+	ok(core.rootScene.getChildIndex(sprite1) == 0);
+});
+
+test("When I set a index to a scene child, if it is a valid index, the next objects index don't must change", function() {
+	core.rootScene.setChildIndex(sprite2, 2);
+	ok(core.rootScene.getChildIndex(sprite4) == 3);
+});
+
+test("When I set a index to a scene child, if it is a valid index, the object that swap index must have a index decremented by 1", function() {
+	var prevSprite3Index = core.rootScene.getChildIndex(sprite3);
+	core.rootScene.setChildIndex(sprite2, 2);
+	var nextSprite3Index = core.rootScene.getChildIndex(sprite3);
+	ok(prevSprite3Index - nextSprite3Index == 1);
+});
+
+test("When I set a index to a scene child, if it is a invalid index, the scene must throws a Error", function() {
+	throws(
+		function() {
+			core.rootScene.setChildIndex(sprite2, 20);
+		},
+			/Index out of bounds/,
+			'raised error message is Index out of bounds'
+	);
+});
+
+test("When I set a index to a scene child, if it is a invalid child, the scene must throws a SceneException", function() {
+	throws(
+		function() {
+			core.rootScene.setChildIndex(new Sprite(1,1), 2);
+		},
+			SceneException,
+			'raised error is SceneException'
+	);
+
+	throws(
+		function() {
+			core.rootScene.setChildIndex(new Sprite(1,1), 2);
+		},
+			/Child not found/,
+			'raised error message is Child not found'
+	);
 });
