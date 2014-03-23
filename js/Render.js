@@ -8,13 +8,15 @@ var Render = function(context)
 
 	this.drawScene = function(scene) {
 		this.clear();
-		this.context.save();
 		for (var i = 0; i < scene.childs.length; i++) {
 			var displayObject = scene.childs[i];
 			if (displayObject.visible) {
+				this.context.save();
+				var rotationInRadians = displayObject.rotation * Math.PI / 180;
+				context.rotate(rotationInRadians);
 				this.context.drawImage(displayObject.image, displayObject.x, displayObject.y);
+				this.context.restore();
 			}
 		}
-		this.context.restore();
 	}
 }
