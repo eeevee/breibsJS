@@ -3,7 +3,7 @@ var Render = function(context)
 	this.context = context;
 
 	this.clear = function() {
-		this.context.clearRect(0, 0, this.context.width, this.context.height);
+		this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 	}
 
 	this.drawScene = function(scene) {
