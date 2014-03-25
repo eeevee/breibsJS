@@ -2,6 +2,9 @@ var core;
 var scene1;
 var SCENE_1_NAME = 'scene1';
 
+/**********************/
+/*       CORE         */
+/**********************/
 module("Core", {
 	setup: function() {
 		core = new Core();
@@ -55,6 +58,9 @@ asyncTest("When I preload a image, when the image load finished, i need to retri
 	core.preloadAsset('../img/wizard_evil.png');
 });
 
+/**********************/
+/*     KEYBOARD       */
+/**********************/
 module("Keyboard", {
 	setup: function() {
 		core = new Core();
@@ -169,6 +175,9 @@ test("When the user press the space key, and after release the key, I need to kn
 	ok(!Keyboard.pressedKeys['space']);
 });
 
+/**********************/
+/*      SCENE         */
+/**********************/
 var sprite1;
 var sprite2;
 var sprite3;
