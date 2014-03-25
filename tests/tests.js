@@ -64,7 +64,7 @@ module("Keyboard", {
 	}
 });
 
-test("When the user press a key, I need to know if the key is pressed", function() {
+test("When the user press the left key, I need to know if the left key is pressed", function() {
 	var evt = new KeyboardEvent('keydown');
 	delete evt.keyCode;
 	evt.keyCode = Keyboard.KEY_CODES['left'];
@@ -72,7 +72,7 @@ test("When the user press a key, I need to know if the key is pressed", function
 	ok(Keyboard.pressedKeys['left']);
 });
 
-test("When the user release a key, I need to know if the key is unpressed", function() {
+test("When the user press the left key, and after release the key, I need to know if the left key is unpressed", function() {
 	var evt = new KeyboardEvent('keydown');
 	delete evt.keyCode;
 	evt.keyCode = Keyboard.KEY_CODES['left'];
@@ -83,6 +83,69 @@ test("When the user release a key, I need to know if the key is unpressed", func
 	evtUp.keyCode = Keyboard.KEY_CODES['left'];
 	window.dispatchEvent(evtUp);
 	ok(!Keyboard.pressedKeys['left']);
+});
+
+test("When the user press the right key, I need to know if the right key is pressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['right'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['right']);
+});
+
+test("When the user press the right key, and after release the key, I need to know if the right key is unpressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['right'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['right']);
+	var evtUp = new KeyboardEvent('keyup');
+	delete evtUp.keyCode;
+	evtUp.keyCode = Keyboard.KEY_CODES['right'];
+	window.dispatchEvent(evtUp);
+	ok(!Keyboard.pressedKeys['right']);
+});
+
+test("When the user press the up key, I need to know if the up key is pressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['up'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['up']);
+});
+
+test("When the user press the up key, and after release the key, I need to know if the up key is unpressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['up'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['up']);
+	var evtUp = new KeyboardEvent('keyup');
+	delete evtUp.keyCode;
+	evtUp.keyCode = Keyboard.KEY_CODES['up'];
+	window.dispatchEvent(evtUp);
+	ok(!Keyboard.pressedKeys['up']);
+});
+
+test("When the user press the down key, I need to know if the down key is pressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['down'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['down']);
+});
+
+test("When the user press the down key, and after release the key, I need to know if the down key is unpressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['down'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['down']);
+	var evtUp = new KeyboardEvent('keyup');
+	delete evtUp.keyCode;
+	evtUp.keyCode = Keyboard.KEY_CODES['down'];
+	window.dispatchEvent(evtUp);
+	ok(!Keyboard.pressedKeys['down']);
 });
 
 var sprite1;
