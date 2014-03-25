@@ -246,6 +246,5 @@ test("When I set a index to a scene child, if it is a invalid child, the scene m
 });
 
 test("When I add four child to core.rootScene, the childs length must be four", function() {
-	core.rootScene.
 	ok(core.rootScene.childs.length == 4);
 });
