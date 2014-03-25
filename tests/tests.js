@@ -148,6 +148,27 @@ test("When the user press the down key, and after release the key, I need to kno
 	ok(!Keyboard.pressedKeys['down']);
 });
 
+test("When the user press the space key, I need to know if the space key is pressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['space'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['space']);
+});
+
+test("When the user press the space key, and after release the key, I need to know if the space key is unpressed", function() {
+	var evt = new KeyboardEvent('keydown');
+	delete evt.keyCode;
+	evt.keyCode = Keyboard.KEY_CODES['space'];
+	window.dispatchEvent(evt);
+	ok(Keyboard.pressedKeys['space']);
+	var evtUp = new KeyboardEvent('keyup');
+	delete evtUp.keyCode;
+	evtUp.keyCode = Keyboard.KEY_CODES['space'];
+	window.dispatchEvent(evtUp);
+	ok(!Keyboard.pressedKeys['space']);
+});
+
 var sprite1;
 var sprite2;
 var sprite3;
