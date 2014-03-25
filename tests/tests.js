@@ -257,3 +257,79 @@ test("When I set a index to a scene child, if it is a invalid child, the scene m
 test("When I add four child to core.rootScene, the childs length must be four", function() {
 	ok(core.rootScene.childs.length == 4);
 });
+
+/**********************/
+/*  EVENT DISPATCHER  */
+/**********************/
+var eventDispatcher;
+var eventName;
+var func;
+
+module("EventDispatcher" , {
+	setup: function() {
+		core = new Core();
+		core.init();
+		eventDispatcher = new EventDispatcher();
+		eventName = 'testEvent';
+
+	}, teardown: function() {
+
+	}
+});
+
+asyncTest("When I dispatch a Event with only text, the EventDispatcher must be transform the event in a object with a type property equals to the text passed", function() {
+	expect(1);
+	eventDispatcher.receive = function(e) {
+		ok(e.type == eventName);
+		start();
+	};
+	eventDispatcher.addEventListener(eventName, eventDispatcher.receive);
+	eventDispatcher.dispatchEvent(eventName);
+});
+
+test("When I add and remove a listener, the EventDispatcher must clean the listener passed", function() {
+	expect(2);
+	eventDispatcher.addEventListener(eventName, func);
+	var listeners = eventDispatcher._listeners;
+	var hasListener = false;
+	for (var i = 0; i < listeners[eventName].length; i++) {
+		if (listeners[eventName][i] == func) {
+			hasListener = true;
+			break;
+		}
+	}
+	ok(hasListener);
+
+	eventDispatcher.removeEventListener(eventName, func);
+	listeners = eventDispatcher._listeners;
+	if (listeners[eventName].length == 0) {
+		hasListener = false;
+	}
+
+	for (var i = 0; i < listeners[eventName].length; i++) {
+		if (listeners[eventName][i] == func) {
+			hasListener = true;
+		} else {
+			hasListener = false;
+		}
+	}
+	ok(!hasListener);
+});
+
+test("When I add a event with a invalid type, the eventDispatcher must throws a Error", function() {
+	throws(
+		function() {
+			eventDispatcher.dispatchEvent(1);
+		},
+			Error,
+			'raised error is Error'
+	);
+
+	throws(
+		function() {
+			eventDispatcher.dispatchEvent(1);
+		},
+			/Event object missing 'type' property./,
+			'raised error message is Event object missing type property.'
+	);
+});
