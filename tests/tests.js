@@ -258,6 +258,8 @@ test("When I add a event with a invalid type, the eventDispatcher must throws a 
 /**********************/
 var tween;
 var target;
+var finalPosX = 100;
+var finalPosY = 10;
 
 module("Tween", {
 	setup: function() {
@@ -276,14 +278,86 @@ test("When I add a Tween.moveTo with no ease, the default ease must be Ease.line
 
 asyncTest("When the Tween finished, the target must be in the final position", function() {
 	expect(2);
-	var finalPosX = 100;
-	var finalPosY = 10;
 	tween.addEventListener('complete', function(e) {
 		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 20);
+	tween.moveTo(target, finalPosX, finalPosY, 5);
+	tween.start();
+});
+
+//Ease.Quad
+asyncTest("When the Tween with Ease.easeInQuad finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		console.log(target);
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInQuad);
+	tween.start();
+});
+
+asyncTest("When the Tween with Ease.easeOutQuad finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		console.log(target);
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeOutQuad);
+	tween.start();
+});
+
+asyncTest("When the Tween with Ease.easeInOutQuad finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		console.log(target);
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInOutQuad);
+	tween.start();
+});
+
+//Ease.Elastic
+asyncTest("When the Tween with Ease.easeInElastic finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		console.log(target);
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInElastic);
+	tween.start();
+});
+
+asyncTest("When the Tween with Ease.easeOutElastic finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		console.log(target);
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeOutElastic);
+	tween.start();
+});
+
+asyncTest("When the Tween with Ease.easeInOutElastic finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		console.log(target);
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInOutElastic);
 	tween.start();
 });
