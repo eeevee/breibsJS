@@ -252,3 +252,38 @@ test("When I add a event with a invalid type, the eventDispatcher must throws a 
 			'raised error message is Event object missing type property.'
 	);
 });
+
+/**********************/
+/*      TWEEN         */
+/**********************/
+var tween;
+var target;
+
+module("Tween", {
+	setup: function() {
+		tween = new Tween();
+		target = {x: 0, y: 0}
+	}, teardown: function() {
+
+	}
+});
+
+test("When I add a Tween.moveTo with no ease, the default ease must be Ease.linear", function() {
+	tween.moveTo({x:0, y:0});
+	ok(tween.properties['x'].ease == Ease.linear);
+	ok(tween.properties['y'].ease == Ease.linear);
+});
+
+asyncTest("When the Tween finished, the target must be in the final position", function() {
+	expect(2);
+	var finalPosX = 100;
+	var finalPosY = 10;
+	tween.addEventListener('complete', function(e) {
+		console.log(target);
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(target, finalPosX, finalPosY, 20);
+	tween.start();
+});
