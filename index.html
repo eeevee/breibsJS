@@ -15,6 +15,7 @@
 	  <script src="js/SceneException.js"></script>
 	  <script src="js/Keyboard.js"></script>
 	  <script src="js/Render.js"></script>
+	  <script src="js/Tween.js"></script>
 	  <script type="text/javascript">
 	  	var game = new Core(300, 300, 24);
 	  	game.preloadAsset('img/wizard_evil.png');
@@ -25,26 +26,36 @@
 	  		game.rootScene.addChild(wiz);
 	  		wiz.scaleX = 2;
 	  		wiz.scaleY = 2;
+	  		var tween = new Tween();
+	  		tween.moveTo(wiz, 100, 50, 60, Ease.easeInOutElastic);
+	  		tween.start();
 
 	  		var bg = new Sprite(550, 400);
 	  		bg.image = game.assets['img/bg.png'];
 	  		game.rootScene.addChild(bg);
 	  		game.rootScene.setChildIndex(bg, 0);
 
+	  		game.addEventListener('enterframe', function(e) {
+	  			bg.x -= 2;
+	  			if (bg.x < -bg.width) {
+	  				bg.x = 0;
+	  			}
+	  		});
+
 	  		game.addEventListener('keydown', function(e) {
-	  			if(Keyboard.pressedKeys['right']) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
 	  				wiz.x += 5;
 	  			}
 
-	  			if(Keyboard.pressedKeys['left']) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
 	  				wiz.x -= 5;
 	  			}
 
-	  			if(Keyboard.pressedKeys['up']) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
 	  				wiz.y -= 5;
 	  			}
 
-	  			if(Keyboard.pressedKeys['down']) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
 	  				wiz.y += 5;
 	  			}
 	  		});
