@@ -38,7 +38,7 @@ var Tween = function()
 	this.loop = function() {
 		for (var key in this.properties) {
 			if (!this.properties[key].finished) {
-				if (this.properties[key].index == this.steps + 1) {
+				if (this.properties[key].index == this.steps) {
 					this.properties[key].finished = true;
 				} else {
 					this.target[key] = this.properties[key].values[this.properties[key].index];
@@ -57,12 +57,14 @@ var Tween = function()
 
 		if (!finishedTween) {
 			this.playInterval();
+		} else {
+			this.dispatchEvent('complete');
 		}
 	};
 
 	this.calculateValues = function(properties) {
 		var values = [];
-		for (var i = 0; i < this.steps + 1; i++) {
+		for (var i = 0; i < this.steps; i++) {
 			var startValue = properties.startPos;//b
 			var currentTime = i + 1;//t
 			var duration = this.steps;//d
