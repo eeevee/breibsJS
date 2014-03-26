@@ -39,19 +39,19 @@
 	  		});
 
 	  		game.addEventListener('keydown', function(e) {
-	  			if(Keyboard.pressedKeys['right']) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
 	  				wiz.x += 5;
 	  			}
 
-	  			if(Keyboard.pressedKeys['left']) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
 	  				wiz.x -= 5;
 	  			}
 
-	  			if(Keyboard.pressedKeys['up']) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
 	  				wiz.y -= 5;
 	  			}
 
-	  			if(Keyboard.pressedKeys['down']) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
 	  				wiz.y += 5;
 	  			}
 	  		});
