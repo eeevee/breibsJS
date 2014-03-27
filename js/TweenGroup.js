@@ -9,7 +9,7 @@ var TweenGroup = function(target)
 		var tween = new Tween();
 		tween.moveTo(this.target, x, y, frames, ease);
 		tween.addEventListener('complete', this.removeTween.bind(this));
-		tween.start();
+		if (this.tweens.length == 0) tween.start();
 		this.tweens.push(tween);
 		return this;
 	};
