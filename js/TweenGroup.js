@@ -4,6 +4,7 @@ var TweenGroup = function(target)
 
 	this.tweens = [];
 	this.target = target;
+	this.loop = false;
 
 	this.moveTo = function(x, y, frames, ease) {
 		var tween = new Tween(this.target);
@@ -23,6 +24,7 @@ var TweenGroup = function(target)
 		var tween = new Tween(this.target);
 		tween.to(frames, properties);
 		this.addTween(tween);
+		return this;
 	};
 
 	this.addTween = function(tween) {
@@ -33,7 +35,10 @@ var TweenGroup = function(target)
 
 	this.completeTweenHandler = function(e) {
 		var tweenIndex = this.tweens.indexOf(e.target);
-		this.tweens.splice(tweenIndex, 1);
+		var removedTween = this.tweens.splice(tweenIndex, 1)[0];
+		if (this.loop) {
+			this.tweens.push(removedTween);
+		}
 		if (this.tweens.length == 0) {
 			this.dispatchEvent('complete');
 		} else {
@@ -48,5 +53,9 @@ var TweenGroup = function(target)
 			tween.properties[key].startPos = this.target[key];
 		}
 		tween.start();	
+	};
+
+	this.setLoop = function(loop) {
+		this.loop = loop;
 	};
 };
