@@ -24,6 +24,7 @@ var TweenGroup = function(target)
 		var tween = new Tween(this.target);
 		tween.to(frames, properties);
 		this.addTween(tween);
+		return this;
 	};
 
 	this.addTween = function(tween) {
