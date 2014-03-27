@@ -6,8 +6,8 @@ var TweenGroup = function(target)
 	this.target = target;
 
 	this.moveTo = function(x, y, frames, ease) {
-		var tween = new Tween();
-		tween.moveTo(this.target, x, y, frames, ease);
+		var tween = new Tween(this.target);
+		tween.moveTo(x, y, frames, ease);
 		tween.addEventListener('complete', this.completeTweenHandler.bind(this));
 		if (this.tweens.length == 0) tween.start();
 		this.tweens.push(tween);

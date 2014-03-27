@@ -263,8 +263,8 @@ var finalPosY = 10;
 
 module("Tween", {
 	setup: function() {
-		tween = new Tween();
 		target = {x: 0, y: 0}
+		tween = new Tween(target);
 	}, teardown: function() {
 
 	}
@@ -283,7 +283,7 @@ asyncTest("When the Tween finished, the target must be in the final position", f
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 5);
+	tween.moveTo(finalPosX, finalPosY, 5);
 	tween.start();
 });
 
@@ -295,7 +295,7 @@ asyncTest("When the Tween with Ease.easeInQuad finished, the target must be in t
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInQuad);
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeInQuad);
 	tween.start();
 });
 
@@ -306,7 +306,7 @@ asyncTest("When the Tween with Ease.easeOutQuad finished, the target must be in 
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeOutQuad);
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeOutQuad);
 	tween.start();
 });
 
@@ -317,7 +317,7 @@ asyncTest("When the Tween with Ease.easeInOutQuad finished, the target must be i
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInOutQuad);
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeInOutQuad);
 	tween.start();
 });
 
@@ -329,7 +329,7 @@ asyncTest("When the Tween with Ease.easeInElastic finished, the target must be i
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInElastic);
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeInElastic);
 	tween.start();
 });
 
@@ -340,7 +340,7 @@ asyncTest("When the Tween with Ease.easeOutElastic finished, the target must be 
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeOutElastic);
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeOutElastic);
 	tween.start();
 });
 
@@ -351,7 +351,7 @@ asyncTest("When the Tween with Ease.easeInOutElastic finished, the target must b
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInOutElastic);
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeInOutElastic);
 	tween.start();
 });
 

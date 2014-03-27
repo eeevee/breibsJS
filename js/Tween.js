@@ -3,21 +3,20 @@
 /* Equations - https://github.com/danro/jquery-easing/blob/master/jquery.easing.js 	*/
 /************************************************************************************/
 
-var Tween = function()
+var Tween = function(target)
 {
 	EventDispatcher.call(this);
 
-	this.target;
+	this.target = target;
 	this.properties = {};
 	this.interval;
 	this.steps;
 	this.running = false;
 
-	this.moveTo = function(target, x, y, frames, ease) {
+	this.moveTo = function(x, y, frames, ease) {
 		if (ease == null) {
 			ease = Ease.linear;
 		}
-		this.target = target;
 		this.properties['x'] = {startPos: target.x, endPos: x, ease: ease};
 		this.properties['y'] = {startPos: target.y, endPos: y, ease: ease};
 		this.steps = frames;
