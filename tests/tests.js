@@ -258,11 +258,13 @@ test("When I add a event with a invalid type, the eventDispatcher must throws a 
 /**********************/
 var tween;
 var target;
+var finalPosX = 100;
+var finalPosY = 10;
 
 module("Tween", {
 	setup: function() {
-		tween = new Tween();
 		target = {x: 0, y: 0}
+		tween = new Tween(target);
 	}, teardown: function() {
 
 	}
@@ -276,14 +278,130 @@ test("When I add a Tween.moveTo with no ease, the default ease must be Ease.line
 
 asyncTest("When the Tween finished, the target must be in the final position", function() {
 	expect(2);
-	var finalPosX = 100;
-	var finalPosY = 10;
 	tween.addEventListener('complete', function(e) {
-		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
 	});
-	tween.moveTo(target, finalPosX, finalPosY, 20);
+	tween.moveTo(finalPosX, finalPosY, 5);
 	tween.start();
+});
+
+//Ease.Quad
+asyncTest("When the Tween with Ease.easeInQuad finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeInQuad);
+	tween.start();
+});
+
+asyncTest("When the Tween with Ease.easeOutQuad finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeOutQuad);
+	tween.start();
+});
+
+asyncTest("When the Tween with Ease.easeInOutQuad finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeInOutQuad);
+	tween.start();
+});
+
+//Ease.Elastic
+asyncTest("When the Tween with Ease.easeInElastic finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeInElastic);
+	tween.start();
+});
+
+asyncTest("When the Tween with Ease.easeOutElastic finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeOutElastic);
+	tween.start();
+});
+
+asyncTest("When the Tween with Ease.easeInOutElastic finished, the target must be in the final position", function() {
+	expect(2);
+	tween.addEventListener('complete', function(e) {
+		ok(target.x == finalPosX);
+		ok(target.y == finalPosY);
+		start();
+	});
+	tween.moveTo(finalPosX, finalPosY, 5, Ease.easeInOutElastic);
+	tween.start();
+});
+
+/**********************/
+/*    TWEEN GROUP     */
+/**********************/
+var tweenGroup;
+
+module("TweenGroup", {
+	setup: function() {
+		tweenGroup = new TweenGroup(new Sprite());
+	}, teardown: function() {
+
+	}
+});
+
+test("When I added one tween by group.moveTo, the tween need to be started", function() {
+	tweenGroup.moveTo(100, 50, 30, Ease.easeOutQuad);
+	ok(tweenGroup.tweens[0].running = true);
+});
+
+test("When I added two tween by group.moveTo, the second tween need to be stoped", function() {
+	tweenGroup.moveTo(100, 50, 30, Ease.easeOutQuad);
+	tweenGroup.moveTo(10, 150, 10, Ease.easeOutQuad);
+	ok(tweenGroup.tweens[1].running == false);
+});
+
+asyncTest("When I added two tween by group.moveTo, the second tween need starts when the first one stop", function() {
+	expect(1);
+	tweenGroup.moveTo(100, 50, 3, Ease.easeOutQuad);
+	tweenGroup.moveTo(10, 150, 5, Ease.easeOutQuad);
+	tweenGroup.addEventListener('tween_completed', function(e) {
+		ok(tweenGroup.tweens[0].running == true);
+		start();
+	});
+});
+
+asyncTest("When I added a tween by group.to, when the tween finish, the target must be with the correct properties values", function() {
+	expect(4);
+	var xValue = 30;
+	var yValue = 20;
+	var opacityValue = .5;
+	var scaleYValue = 2;
+	var target = tweenGroup.target;
+	tweenGroup.addEventListener('complete', function(e) {
+		ok(target.x == xValue);
+		ok(target.y == yValue);
+		ok(target.opacity == opacityValue);
+		ok(target.scaleY == scaleYValue);
+		start();
+	});
+	tweenGroup.to(4, {x:xValue, y: yValue, opacity: opacityValue, scaleY: scaleYValue});
 });

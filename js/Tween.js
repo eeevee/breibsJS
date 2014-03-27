@@ -3,23 +3,49 @@
 /* Equations - https://github.com/danro/jquery-easing/blob/master/jquery.easing.js 	*/
 /************************************************************************************/
 
-var Tween = function()
+var Tween = function(target)
 {
 	EventDispatcher.call(this);
 
-	this.target;
+	this.target = target;
 	this.properties = {};
 	this.interval;
 	this.steps;
+	this.running = false;
 
-	this.moveTo = function(target, x, y, frames, ease) {
+	this.moveTo = function(x, y, frames, ease) {
 		if (ease == null) {
 			ease = Ease.linear;
 		}
-		this.target = target;
-		this.properties['x'] = {startPos: target.x, endPos: x, ease: ease};
-		this.properties['y'] = {startPos: target.y, endPos: y, ease: ease};
+		this.properties['x'] = {startPos: this.target.x, endPos: x, ease: ease};
+		this.properties['y'] = {startPos: this.target.y, endPos: y, ease: ease};
 		this.steps = frames;
+	};
+
+	this.scaleTo = function(scaleX, scaleY, frames, ease) {
+		if (ease == null) {
+			ease = Ease.linear;
+		}
+		this.properties['scaleX'] = {startPos: this.target.scaleX, endPos: scaleX, ease: ease};
+		this.properties['scaleY'] = {startPos: this.target.scaleY, endPos: scaleY, ease: ease};
+		this.steps = frames;
+	};
+
+	this.to = function(frames, properties) {
+		this.steps = frames;
+
+		var ease = null;
+		if (properties['ease']) {
+			ease = properties['ease'];
+		} else {
+			ease = Ease.linear;
+		}
+		
+		for (var key in properties) {
+			if (key != 'ease') {
+				this.properties[key] = {startPos: this.target[key], endPos: properties[key], ease: ease};
+			}
+		}
 	};
 
 	this.start = function() {
@@ -29,6 +55,7 @@ var Tween = function()
 			this.properties[key].finished = false;
 		}
 		this.playInterval();
+		this.running = true;
 	};
 
 	this.playInterval = function() {
@@ -58,6 +85,7 @@ var Tween = function()
 		if (!finishedTween) {
 			this.playInterval();
 		} else {
+			this.running = false;
 			this.dispatchEvent('complete');
 		}
 	};
