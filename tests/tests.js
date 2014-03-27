@@ -361,3 +361,27 @@ asyncTest("When the Tween with Ease.easeInOutElastic finished, the target must b
 	tween.moveTo(target, finalPosX, finalPosY, 5, Ease.easeInOutElastic);
 	tween.start();
 });
+
+/**********************/
+/*    TWEEN GROUP     */
+/**********************/
+var tweenGroup;
+
+module("TweenGroup", {
+	setup: function() {
+		tweenGroup = new TweenGroup(new Sprite());
+	}, teardown: function() {
+
+	}
+});
+
+test("When I added one tween by group.moveTo, the tween need to be started", function() {
+	tweenGroup.moveTo(100, 50, 30, Ease.easeOutQuad);
+	ok(tweenGroup.tweens[0].running = true);
+});
+
+test("When I added two tween by group.moveTo, the second tween need to be stooped", function() {
+	tweenGroup.moveTo(100, 50, 30, Ease.easeOutQuad);
+	tweenGroup.moveTo(10, 150, 10, Ease.easeOutQuad);
+	ok(tweenGroup.tweens[1].running = false);
+});
