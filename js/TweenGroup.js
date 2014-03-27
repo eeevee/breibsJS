@@ -35,7 +35,7 @@ var TweenGroup = function(target)
 
 	this.completeTweenHandler = function(e) {
 		var tweenIndex = this.tweens.indexOf(e.target);
-		var removedTween = this.tweens.splice(tweenIndex, 1);
+		var removedTween = this.tweens.splice(tweenIndex, 1)[0];
 		if (this.loop) {
 			this.tweens.push(removedTween);
 		}
@@ -53,5 +53,9 @@ var TweenGroup = function(target)
 			tween.properties[key].startPos = this.target[key];
 		}
 		tween.start();	
+	};
+
+	this.setLoop = function(loop) {
+		this.loop = loop;
 	};
 };

@@ -423,3 +423,15 @@ asyncTest("When I added a tween by group.to, when the tween finish, the target m
 	});
 	tweenGroup.to(4, {x:xValue, y: yValue, opacity: opacityValue, scaleY: scaleYValue});
 });
+
+asyncTest("When I add two tweens to a group, and set the group to loop, when the first tween stops, it has to stay in the end of the queue", function() {
+	expect(1);
+	var xEndPos = 10;
+	tweenGroup.moveTo(xEndPos, 10, 2).moveTo(20, 20, 4).setLoop(true);
+	var callback = function(e) {
+		ok(tweenGroup.tweens[1].properties.x.endPos == xEndPos);
+		tweenGroup.removeEventListener('tween_completed', callback);
+		start();
+	};
+	tweenGroup.addEventListener('tween_completed', callback);
+});
