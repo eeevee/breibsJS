@@ -389,6 +389,19 @@ asyncTest("When I added two tween by group.moveTo, the second tween need starts 
 	});
 });
 
+asyncTest("When I added a tween by group.scaleTo, when the tween finish, the target must be with the correct properties values", function() {
+	expect(2);
+	var scaleXValue = 2;
+	var scaleYValue = 2;
+	var target = tweenGroup.target;
+	tweenGroup.addEventListener('complete', function(e) {
+		ok(target.scaleX == scaleXValue);
+		ok(target.scaleY == scaleYValue);
+		start();
+	});
+	tweenGroup.scaleTo(scaleXValue, scaleYValue, 4);
+});
+
 asyncTest("When I added a tween by group.to, when the tween finish, the target must be with the correct properties values", function() {
 	expect(4);
 	var xValue = 30;
