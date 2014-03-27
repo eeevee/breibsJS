@@ -11,6 +11,7 @@ var Tween = function()
 	this.properties = {};
 	this.interval;
 	this.steps;
+	this.running = false;
 
 	this.moveTo = function(target, x, y, frames, ease) {
 		if (ease == null) {
@@ -29,6 +30,7 @@ var Tween = function()
 			this.properties[key].finished = false;
 		}
 		this.playInterval();
+		this.running = true;
 	};
 
 	this.playInterval = function() {
@@ -58,6 +60,7 @@ var Tween = function()
 		if (!finishedTween) {
 			this.playInterval();
 		} else {
+			this.running = false;
 			this.dispatchEvent('complete');
 		}
 	};
