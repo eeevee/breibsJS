@@ -4,6 +4,7 @@ var Sprite = function(width, height)
 
 	this.width = width;
 	this.height = height;
+	this.tweenGroup = new TweenGroup(this);
 
 	this.image;
 };
