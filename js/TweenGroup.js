@@ -19,6 +19,12 @@ var TweenGroup = function(target)
 		return this;
 	};
 
+	this.to = function(frames, properties) {
+		var tween = new Tween(this.target);
+		tween.to(frames, properties);
+		this.addTween(tween);
+	};
+
 	this.addTween = function(tween) {
 		tween.addEventListener('complete', this.completeTweenHandler.bind(this));
 		if (this.tweens.length == 0) tween.start();

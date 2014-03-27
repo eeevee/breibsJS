@@ -388,3 +388,20 @@ asyncTest("When I added two tween by group.moveTo, the second tween need starts 
 		start();
 	});
 });
+
+asyncTest("When I added a tween by group.to, when the tween finish, the target must be with the correct properties values", function() {
+	expect(4);
+	var xValue = 30;
+	var yValue = 20;
+	var opacityValue = .5;
+	var scaleYValue = 2;
+	var target = tweenGroup.target;
+	tweenGroup.addEventListener('complete', function(e) {
+		ok(target.x == xValue);
+		ok(target.y == yValue);
+		ok(target.opacity == opacityValue);
+		ok(target.scaleY == scaleYValue);
+		start();
+	});
+	tweenGroup.to(4, {x:xValue, y: yValue, opacity: opacityValue, scaleY: scaleYValue});
+});
