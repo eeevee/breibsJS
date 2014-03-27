@@ -57,6 +57,13 @@
 	  				wiz.y += 5;
 	  			}
 	  		});
+
+	  		game.addEventListener('mousedown', function(e) {
+	  			var wiz2 = new Sprite(16,16);
+				wiz2.image = game.assets['img/wizard_evil.png'];
+				wiz2.tweenGroup.moveTo(300, e.clientY, 20);
+				game.rootScene.addChild(wiz2);
+	  		});
 	  	});
 	  	game.init();
 	  </script>
