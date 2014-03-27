@@ -1,11 +1,15 @@
-var TweenGroup = function()
+var TweenGroup = function(target)
 {
 	EventDispatcher.call(this);
 
 	this.tweens = [];
+	this.target = target;
 
-	this.addTween = function(tween) {
+	this.moveTo = function(x, y, frames, ease) {
+		var tween = new Tween();
+		tween.moveTo(this.target, x, y, frames, ease);
 		tween.addEventListener('complete', this.removeTween.bind(this));
+		tween.start();
 		this.tweens.push(tween);
 		return this;
 	};
@@ -17,4 +21,4 @@ var TweenGroup = function()
 			this.dispatchEvent('complete');
 		}
 	};
-}
+};
