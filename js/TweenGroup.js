@@ -19,6 +19,8 @@ var TweenGroup = function(target)
 		this.tweens.splice(tweenIndex, 1);
 		if (this.tweens.length == 0) {
 			this.dispatchEvent('complete');
+		} else {
+			this.dispatchEvent('tween_completed');
 		}
 	};
 };
