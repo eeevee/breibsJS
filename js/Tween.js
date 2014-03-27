@@ -22,6 +22,15 @@ var Tween = function(target)
 		this.steps = frames;
 	};
 
+	this.scaleTo = function(scaleX, scaleY, frames, ease) {
+		if (ease == null) {
+			ease = Ease.linear;
+		}
+		this.properties['scaleX'] = {startPos: target.scaleX, endPos: scaleX, ease: ease};
+		this.properties['scaleY'] = {startPos: target.scaleY, endPos: scaleY, ease: ease};
+		this.steps = frames;
+	};
+
 	this.start = function() {
 		for (var key in this.properties) {
 			this.properties[key].values = this.calculateValues(this.properties[key]);

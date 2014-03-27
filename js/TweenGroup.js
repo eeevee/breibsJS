@@ -8,10 +8,21 @@ var TweenGroup = function(target)
 	this.moveTo = function(x, y, frames, ease) {
 		var tween = new Tween(this.target);
 		tween.moveTo(x, y, frames, ease);
+		this.addTween(tween);
+		return this;
+	};
+
+	this.scaleTo = function(scaleX, scaleY, frames, ease) {
+		var tween = new Tween(this.target);
+		tween.scaleTo(scaleX, scaleY, frames, ease);
+		this.addTween(tween);
+		return this;
+	};
+
+	this.addTween = function(tween) {
 		tween.addEventListener('complete', this.completeTweenHandler.bind(this));
 		if (this.tweens.length == 0) tween.start();
 		this.tweens.push(tween);
-		return this;
 	};
 
 	this.completeTweenHandler = function(e) {
@@ -20,15 +31,16 @@ var TweenGroup = function(target)
 		if (this.tweens.length == 0) {
 			this.dispatchEvent('complete');
 		} else {
-			this.updateNextTweenPositionAndStartThen();
+			this.updateNextTweenPropertiesAndStartThen();
 			this.dispatchEvent('tween_completed');
 		}
 	};
 
-	this.updateNextTweenPositionAndStartThen = function() {
+	this.updateNextTweenPropertiesAndStartThen = function() {
 		var tween = this.tweens[0];
-		tween.properties['x'].startPos = this.target.x;
-		tween.properties['y'].startPos = this.target.y;
+		for (var key in tween.properties) {
+			tween.properties[key].startPos = this.target[key];
+		}
 		tween.start();	
 	};
 };
