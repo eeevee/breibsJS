@@ -355,6 +355,11 @@ asyncTest("When the Tween with Ease.easeInOutElastic finished, the target must b
 	tween.start();
 });
 
+test("When I create a tween.to and pass a ease function, the ease need to be setted", function() {
+	tween.to(2, {x:finalPosX, ease: Ease.easeInElastic});
+	ok(tween.properties['x'].ease == Ease.easeInElastic);
+});
+
 /**********************/
 /*    TWEEN GROUP     */
 /**********************/
