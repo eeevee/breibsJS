@@ -279,7 +279,6 @@ test("When I add a Tween.moveTo with no ease, the default ease must be Ease.line
 asyncTest("When the Tween finished, the target must be in the final position", function() {
 	expect(2);
 	tween.addEventListener('complete', function(e) {
-		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
@@ -292,7 +291,6 @@ asyncTest("When the Tween finished, the target must be in the final position", f
 asyncTest("When the Tween with Ease.easeInQuad finished, the target must be in the final position", function() {
 	expect(2);
 	tween.addEventListener('complete', function(e) {
-		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
@@ -304,7 +302,6 @@ asyncTest("When the Tween with Ease.easeInQuad finished, the target must be in t
 asyncTest("When the Tween with Ease.easeOutQuad finished, the target must be in the final position", function() {
 	expect(2);
 	tween.addEventListener('complete', function(e) {
-		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
@@ -316,7 +313,6 @@ asyncTest("When the Tween with Ease.easeOutQuad finished, the target must be in 
 asyncTest("When the Tween with Ease.easeInOutQuad finished, the target must be in the final position", function() {
 	expect(2);
 	tween.addEventListener('complete', function(e) {
-		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
@@ -329,7 +325,6 @@ asyncTest("When the Tween with Ease.easeInOutQuad finished, the target must be i
 asyncTest("When the Tween with Ease.easeInElastic finished, the target must be in the final position", function() {
 	expect(2);
 	tween.addEventListener('complete', function(e) {
-		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
@@ -341,7 +336,6 @@ asyncTest("When the Tween with Ease.easeInElastic finished, the target must be i
 asyncTest("When the Tween with Ease.easeOutElastic finished, the target must be in the final position", function() {
 	expect(2);
 	tween.addEventListener('complete', function(e) {
-		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
@@ -353,7 +347,6 @@ asyncTest("When the Tween with Ease.easeOutElastic finished, the target must be 
 asyncTest("When the Tween with Ease.easeInOutElastic finished, the target must be in the final position", function() {
 	expect(2);
 	tween.addEventListener('complete', function(e) {
-		console.log(target);
 		ok(target.x == finalPosX);
 		ok(target.y == finalPosY);
 		start();
@@ -380,8 +373,18 @@ test("When I added one tween by group.moveTo, the tween need to be started", fun
 	ok(tweenGroup.tweens[0].running = true);
 });
 
-test("When I added two tween by group.moveTo, the second tween need to be stooped", function() {
+test("When I added two tween by group.moveTo, the second tween need to be stoped", function() {
 	tweenGroup.moveTo(100, 50, 30, Ease.easeOutQuad);
 	tweenGroup.moveTo(10, 150, 10, Ease.easeOutQuad);
-	ok(tweenGroup.tweens[1].running = false);
+	ok(tweenGroup.tweens[1].running == false);
+});
+
+asyncTest("When I added two tween by group.moveTo, the second tween need starts when the first one stop", function() {
+	expect(1);
+	tweenGroup.moveTo(100, 50, 3, Ease.easeOutQuad);
+	tweenGroup.moveTo(10, 150, 5, Ease.easeOutQuad);
+	tweenGroup.addEventListener('tween_completed', function(e) {
+		ok(tweenGroup.tweens[0].running == true);
+		start();
+	});
 });
