@@ -1,6 +1,6 @@
 var Surface = function(width, height, addToDocument) 
 {
-	if (!addToDocument) {
+	if (addToDocument == null) {
 		addToDocument = true;
 	}
 
