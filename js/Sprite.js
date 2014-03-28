@@ -74,6 +74,7 @@ var Sprite = function(width, height)
 				map[rowOffset] = {x: x, y: y, pixelData: pixelData};
 			}
 		}
+		console.log(map);
 		return map;
 	};
 
