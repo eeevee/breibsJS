@@ -62,7 +62,7 @@ var Sprite = function(width, height)
 	};
 
 	this.generatePixelMap = function(source, resolution) {
-		if (!resolution) resolution = 1;
+		if (!resolution) resolution = 5;
 		if (!source) source = this;
 		
 		var map = [];
