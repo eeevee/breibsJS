@@ -52,7 +52,7 @@ var Sprite = function(width, height)
 					continue;
 				}
 
-				if (pixel1.pixelData[3] == 255 && pixel2.pixelData[3] == 255) {
+				if (pixel1.pixelData[3] != 0 && pixel2.pixelData[3] != 0) {
 					return true;
 				}
 			}
@@ -74,7 +74,6 @@ var Sprite = function(width, height)
 				map[rowOffset] = {x: x, y: y, pixelData: pixelData};
 			}
 		}
-		console.log(map);
 		return map;
 	};
 
