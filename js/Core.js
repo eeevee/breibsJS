@@ -104,7 +104,6 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		for (var i = 0; i < spritesClicked.length; i++) {
 			spritesClicked[i].dispatchEvent(e);
 		}
-
 		this.dispatchEvent(e);
 	};
 }
