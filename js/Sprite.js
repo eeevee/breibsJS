@@ -43,7 +43,7 @@ var Sprite = function(width, height)
 		//var myPixels = myImageData.data;
 		//var targetPixels = targetImageData.data;
 
-		for (var y = top; i < bottom; y++) {
+		for (var y = top; y < bottom; y++) {
 			for (var x = left; x < right; x++) {
 				var pixel1 = myImageData[(x - this.x) + "_" + (y - this.y)];
 				var pixel2 = targetImageData[(x - target.x) + "_" + (y - target.y)];
@@ -68,7 +68,6 @@ var Sprite = function(width, height)
 		for (var y = 0; y < source.height; y += resolution) {
 			for (var x = 0; x < source.width; x += resolution) {
 				var rowOffset = y + "_" + x;
-				console.log(surface.context.getImageData);
 				var pixel = surface.context.getImageData(x, y, resolution, resolution);
 				var pixelData = pixel.data;
 				map[rowOffset] = {x: x, y: y, pixelData: pixelData};
