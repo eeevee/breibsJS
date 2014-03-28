@@ -58,6 +58,27 @@ asyncTest("When I preload a image, when the image load finished, i need to retri
 	core.preloadAsset('../img/wizard_evil.png');
 });
 
+asyncTest("When I click in a sprite inside canvas, the sprite must receive the click", function() {
+	expect(1);
+	core.addEventListener('load', function(e) {
+		var sprite = new Sprite(30,30);
+		sprite.image = core.assets['../img/wizard_evil.png'];
+		sprite.addEventListener('mousedown', function(e) {
+			ok(true);
+			start();
+		});
+		core.rootScene.addChild(sprite);
+		var mouseEvent = new MouseEvent('mousedown');
+		delete mouseEvent.layerX;
+		delete mouseEvent.layerY;
+		mouseEvent.layerX = 10;
+		mouseEvent.layerY = 10;
+		core.canvas.canvas.dispatchEvent(mouseEvent);
+	});
+	
+	core.preloadAsset('../img/wizard_evil.png');
+});
+
 /**********************/
 /*     KEYBOARD       */
 /**********************/
