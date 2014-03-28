@@ -75,7 +75,7 @@ asyncTest("When I click in a sprite inside canvas, the sprite must receive the c
 		delete mouseEvent.layerY;
 		mouseEvent.layerX = 10;
 		mouseEvent.layerY = 10;
-		core.canvas.canvas.dispatchEvent(mouseEvent);
+		surface.canvas.dispatchEvent(mouseEvent);
 	});
 	
 	core.preloadAsset('../img/wizard_evil.png');
