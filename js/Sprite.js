@@ -6,6 +6,9 @@ var Sprite = function(width, height)
 	this.height = height;
 	this.tweenGroup = new TweenGroup(this);
 	this.image;
+	this.collisionSurface = new Surface(surface.width, surface.height, true);
+	this.collisionScene = new Scene('collision');
+	this.render = new Render(this.collisionSurface.context);
 
 	this.boxCollides = function(target) {
 		if (!target.visible) return false;
@@ -26,8 +29,13 @@ var Sprite = function(width, height)
 		return false;
 	};
 
-	this.pixelPerfectCollides = function(target, myImageData, targetImageData) {
+	this.pixelPerfectCollides = function(target) {
+		this.collisionScene.addChild(this);
+		this.collisionScene.addChild(target);
+		this.render.drawScene(this.collisionScene);
 		//var myImageData = this.generatePixelMap(this);//surface.context.getImageData(this.x, this.y, this.getWidth(), this.getHeight());
+		//var myImageData = surface.context.getImageData(this.x, this.y, this.getWidth(), this.getHeight());
+		//var targetImageData = surface.context.getImageData(targetImageData.x, targetImageData.y, targetImageData.getWidth(), targetImageData.getHeight());
 		//var targetImageData = this.generatePixelMap(target);//surface.context.getImageData(targetImageData.x, targetImageData.y, targetImageData.getWidth(), targetImageData.getHeight());
 
 		var left = Math.max(this.x, target.x);
@@ -43,6 +51,7 @@ var Sprite = function(width, height)
 		//var myPixels = myImageData.data;
 		//var targetPixels = targetImageData.data;
 
+/*
 		for (var y = top; y < bottom; y++) {
 			for (var x = left; x < right; x++) {
 				var pixel1 = myImageData[(x - this.x) + "_" + (y - this.y)];
@@ -57,7 +66,7 @@ var Sprite = function(width, height)
 				}
 			}
 		}
-
+*/
 		return false;
 	};
 
