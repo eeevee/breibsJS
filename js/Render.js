@@ -17,7 +17,7 @@ var Render = function(context)
 				this.context.scale(displayObject.scaleX, displayObject.scaleY);
 				var rotationInRadians = displayObject.rotation * Math.PI / 180;
 				context.rotate(rotationInRadians);
-				this.context.drawImage(displayObject.image, displayObject.x, displayObject.y);
+				this.context.drawImage(displayObject.image, displayObject.x / displayObject.scaleX, displayObject.y / displayObject.scaleY);
 				this.context.globalAlpha = 1;
 				this.context.restore();
 			}

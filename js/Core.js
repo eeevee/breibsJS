@@ -36,6 +36,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 		window.addEventListener('keydown', this.keyboardHandler.bind(this), false);
 		window.addEventListener('keyup', this.keyboardHandler.bind(this), false);
+		this.canvas.canvas.addEventListener('mousedown', this.mouseDownHandler.bind(this), true);
 	};
 	
 	this.preloadAsset = function(pathToAsset) {
@@ -93,7 +94,17 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		this.dispatchEvent(new Event('enterframe'));
 	};
 
+	//USER INPUTS
 	this.keyboardHandler = function(e) {
+		this.dispatchEvent(e);
+	};
+
+	this.mouseDownHandler = function(e) {
+		var spritesClicked = this.currentScene.getChildsUnderPoint({x: e.layerX, y: e.layerY});
+		for (var i = 0; i < spritesClicked.length; i++) {
+			spritesClicked[i].dispatchEvent(e);
+		}
+
 		this.dispatchEvent(e);
 	};
 }

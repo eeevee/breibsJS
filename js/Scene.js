@@ -24,4 +24,16 @@ var Scene = function(name)
 	this.getChildIndex = function(displayObject) {
 		return this.childs.indexOf(displayObject);
 	};
+
+	this.getChildsUnderPoint = function(point) {
+		var childsUnderPoint = [];
+		for (var i = 0; i < this.childs.length; i++) {
+			var child = this.childs[i];
+			if (!child.visible) continue;
+			if (child.pointCollides(point)) {
+				childsUnderPoint.push(child);
+			}
+		}
+		return childsUnderPoint;
+	};
 }
