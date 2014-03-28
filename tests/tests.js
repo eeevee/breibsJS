@@ -469,6 +469,8 @@ asyncTest("When I add two tweens to a group, and set the group to loop, when the
 /**********************/
 /*     COLLISION      */
 /**********************/
+var point;
+
 module("Collisions", {
 	setup: function() {
 		core = new Core();
@@ -490,4 +492,14 @@ test("When two sprites collides, I need to know that the collision occurred", fu
 test("When two sprites not collides, I need to know that the collision don't occurred", function() {
 	sprite1.x = 300;
 	ok(!sprite1.boxCollides(sprite2));
+});
+
+test("When a point is inside a sprite1, I need to know that a collision occurred", function() {
+	point = {x: 5, y: 5};
+	ok(sprite1.pointCollides(point));
+});
+
+test("When a point is outise a sprite1, I need to know that a collision don't occurred", function() {
+	point = {x: 55, y: 55};
+	ok(!sprite1.pointCollides(point));
 });
