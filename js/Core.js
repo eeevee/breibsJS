@@ -100,6 +100,11 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 
 	this.mouseDownHandler = function(e) {
+		var spritesClicked = this.currentScene.getChildsUnderPoint({x: e.layerX, y: e.layerY});
+		for (var i = 0; i < spritesClicked.length; i++) {
+			spritesClicked[i].dispatchEvent(e);
+		}
+
 		this.dispatchEvent(e);
 	};
 }
