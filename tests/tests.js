@@ -12,7 +12,8 @@ module("Core", {
 		scene1 = new Scene('scene1');
 		core.addScene(scene1);
 	}, teardown: function() {
-
+		core.render.canRender = false;
+		delete core;
 	}
 });
 
@@ -95,7 +96,8 @@ module("Keyboard", {
 		core.init();
 		keyCode = Keyboard.KEY_CODES['Left'];
 	}, teardown: function() {
-
+		core.render.canRender = false;
+		delete core;
 	}
 });
 
@@ -145,7 +147,8 @@ module("Scene", {
 		core.rootScene.addChild(sprite3);
 		core.rootScene.addChild(sprite4);
 	}, teardown: function() {
-
+		core.render.canRender = false;
+		delete core;
 	}
 });
 
@@ -218,7 +221,8 @@ module("EventDispatcher" , {
 		eventName = 'testEvent';
 
 	}, teardown: function() {
-
+     	core.render.canRender = false;
+		delete core;
 	}
 });
 
@@ -395,7 +399,7 @@ module("TweenGroup", {
 	setup: function() {
 		tweenGroup = new TweenGroup(new Sprite());
 	}, teardown: function() {
-
+		delete tweenGroup;
 	}
 });
 
@@ -465,4 +469,37 @@ asyncTest("When I add two tweens to a group, and set the group to loop, when the
 /**********************/
 /*     COLLISION      */
 /**********************/
-module
+var point;
+
+module("Collisions", {
+	setup: function() {
+		core = new Core();
+		core.init();
+		sprite1 = new Sprite(10, 10);
+		sprite2 = new Sprite(10, 10);
+		core.rootScene.addChild(sprite1);
+		core.rootScene.addChild(sprite2);
+	}, teardown: function() {
+		core.render.canRender = false;
+		delete core;
+	}
+});
+
+test("When two sprites collides, I need to know that the collision occurred", function() {
+	ok(sprite1.boxCollides(sprite2));
+});
+
+test("When two sprites not collides, I need to know that the collision don't occurred", function() {
+	sprite1.x = 300;
+	ok(!sprite1.boxCollides(sprite2));
+});
+
+test("When a point is inside a sprite1, I need to know that a collision occurred", function() {
+	point = {x: 5, y: 5};
+	ok(sprite1.pointCollides(point));
+});
+
+test("When a point is outside a sprite1, I need to know that a collision don't occurred", function() {
+	point = {x: 55, y: 55};
+	ok(!sprite1.pointCollides(point));
+});
