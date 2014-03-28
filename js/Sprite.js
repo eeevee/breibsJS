@@ -26,9 +26,9 @@ var Sprite = function(width, height)
 		return false;
 	};
 
-	this.pixelPerfectCollides = function(target) {
-		var myImageData = this.generatePixelMap(this);//surface.context.getImageData(this.x, this.y, this.getWidth(), this.getHeight());
-		var targetImageData = this.generatePixelMap(target);//surface.context.getImageData(targetImageData.x, targetImageData.y, targetImageData.getWidth(), targetImageData.getHeight());
+	this.pixelPerfectCollides = function(target, myImageData, targetImageData) {
+		//var myImageData = this.generatePixelMap(this);//surface.context.getImageData(this.x, this.y, this.getWidth(), this.getHeight());
+		//var targetImageData = this.generatePixelMap(target);//surface.context.getImageData(targetImageData.x, targetImageData.y, targetImageData.getWidth(), targetImageData.getHeight());
 
 		var left = Math.max(this.x, target.x);
 		var top = Math.max(this.y, target.y);
@@ -63,6 +63,7 @@ var Sprite = function(width, height)
 
 	this.generatePixelMap = function(source, resolution) {
 		if (!resolution) resolution = 1;
+		if (!source) source = this;
 		
 		var map = [];
 		for (var y = 0; y < source.height; y += resolution) {

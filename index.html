@@ -43,13 +43,16 @@
 	  		game.rootScene.addChild(bg);
 	  		game.rootScene.setChildIndex(bg, 0);
 
+	  		var wiz1Data = wiz1Data.generatePixelMap();
+	  		var wiz2Data = wiz2Data.generatePixelMap();
+
 	  		game.addEventListener('enterframe', function(e) {
 	  			bg.x -= 2;
 	  			if (bg.x < -bg.width) {
 	  				bg.x = 0;
 	  			}
 
-	  			if (wiz.pixelPerfectCollides(wiz2)) {
+	  			if (wiz.pixelPerfectCollides(wiz2, wiz1Data, wiz2Data)) {
 	  				console.log('colidiu');
 	  				wiz2.visible = false;
 	  			}
