@@ -499,7 +499,7 @@ test("When a point is inside a sprite1, I need to know that a collision occurred
 	ok(sprite1.pointCollides(point));
 });
 
-test("When a point is outise a sprite1, I need to know that a collision don't occurred", function() {
+test("When a point is outside a sprite1, I need to know that a collision don't occurred", function() {
 	point = {x: 55, y: 55};
 	ok(!sprite1.pointCollides(point));
 });
