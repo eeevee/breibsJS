@@ -6,7 +6,7 @@ var Sprite = function(width, height)
 	this.height = height;
 	this.tweenGroup = new TweenGroup(this);
 	this.image;
-	this.collisionSurface = new Surface(surface.width, surface.height, true);
+	this.collisionSurface = new Surface(surface.canvas.width, surface.canvas.height, true);
 	this.collisionScene = new Scene('collision');
 	this.render = new Render(this.collisionSurface.context);
 
