@@ -9,6 +9,7 @@ var Sprite = function(width, height)
 	this.image;
 
 	this.boxCollides = function(target) {
+		if (!target.visible) return false;
 		if (this.x < target.x + target.width  &&
 			this.x + this.width * this.scaleX > target.x    &&
 			this.y < target.y + target.height &&

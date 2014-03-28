@@ -29,6 +29,7 @@ var Scene = function(name)
 		var childsUnderPoint = [];
 		for (var i = 0; i < this.childs.length; i++) {
 			var child = this.childs[i];
+			if (!child.visible) continue;
 			if (child.pointCollides(point)) {
 				childsUnderPoint.push(child);
 			}
