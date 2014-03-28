@@ -64,6 +64,7 @@ asyncTest("When I click in a sprite inside canvas, the sprite must receive the c
 		var sprite = new Sprite(30,30);
 		sprite.image = core.assets['../img/wizard_evil.png'];
 		sprite.addEventListener('mousedown', function(e) {
+			clearTimeout(timeoutId);
 			ok(true);
 			start();
 		});
@@ -77,6 +78,10 @@ asyncTest("When I click in a sprite inside canvas, the sprite must receive the c
 	});
 	
 	core.preloadAsset('../img/wizard_evil.png');
+	var timeoutId = setTimeout(function() {
+		ok(false);
+		start();
+	}, 100);
 });
 
 /**********************/
@@ -456,3 +461,8 @@ asyncTest("When I add two tweens to a group, and set the group to loop, when the
 	};
 	tweenGroup.addEventListener('tween_completed', callback);
 });
+
+/**********************/
+/*     COLLISION      */
+/**********************/
+module
