@@ -1,4 +1,5 @@
 var GAME_FPS = 30;
+var DEBUG = false;
 var surface;
 
 var Core = function(gameWidth, gameHeight, gameFPS)
