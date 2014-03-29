@@ -561,8 +561,9 @@ asyncTest("When I create a surface, if the addToDocument parameter is true, I ne
 asyncTest("When I create a surface, if the addToDocument parameter is false, I don't need to attach this to the document's body", function() {
 	expect(1);
 	surface = new Surface(100, 100, false);
+	surface.canvas.id = 'surfaceTest';
 	setTimeout(function() {
-		ok(!document.querySelector('canvas'));
+		ok(!document.querySelector('#surfaceTest'));
 		start();
 	}, 50);
 });
