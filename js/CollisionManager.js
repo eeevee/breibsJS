@@ -1,10 +1,9 @@
 var CollisionManager = function(source)
 {
 	var _source = source;
-	var _collisionSurface = new Surface(surface.canvas.width, surface.canvas.height, true);
-	var _collisionScene = new Scene('collision');
+	var _collisionSurface = new Surface((surface) ? surface.canvas.width : 100, (surface) ? surface.canvas.height : 100, true);
 	var _render = new Render(_collisionSurface.context);
-	
+	var _collisionScene = new Scene('collision');
 	_collisionScene.addChild(source);
 
 	this.boxCollides = function(target) {
