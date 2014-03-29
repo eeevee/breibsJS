@@ -19,34 +19,36 @@
 	  <script src="js/TweenGroup.js"></script>
 	  <script src="js/CollisionManager.js"></script>
 	  <script type="text/javascript">
-	  	var game = new Core(300, 300, 24);
+	  	var game = new Core(300, 300, 30);
 	  	game.preloadAsset('img/wizard_evil.png');
+	  	game.preloadAsset('img/wizard_evil_no_bg.png');
 	  	game.preloadAsset('img/bg.png');
 	  	game.addEventListener('load', function(e) {
 	  		var wiz = new Sprite(16,16);
-			wiz.image = game.assets['img/wizard_evil.png'];
+			wiz.image = game.assets['img/wizard_evil_no_bg.png'];
 	  		game.rootScene.addChild(wiz);
 	  		//wiz.tweenGroup.moveTo(100, 50, 10, Ease.easeOutQuad).moveTo(20, 10, 5).scaleTo(2, 2, 5);
-	  		wiz.tweenGroup.to(20, {x: 100, y: 30, scaleX: 2, scaleY: 2, opacity: .5}).to(10, {x: 0, y: 0, scaleX: 1, scaleY: 1, opacity: 1}).setLoop(true);
+	  		wiz.tweenGroup.to(10, {x: 300, y: 150, scaleX: 2, scaleY: 2, opacity: .5}).to(10, {x: 0, y: 300, scaleX: 1, scaleY: 1, opacity: 1}).moveTo(0,0,10).setLoop(true);
 	  		wiz.addEventListener('mousedown', function(e) {
 	  			console.log('clicou no wiz');
 	  		});
 
-	  		var wiz2 = new Sprite(16,16);
-	  		wiz2.x = 70;
-	  		wiz2.y = 30;
-	  		wiz2.setScaleX(2);
-	  		wiz2.setScaleY(2);
-			wiz2.image = game.assets['img/wizard_evil.png'];
-	  		game.rootScene.addChild(wiz2);
+	  		var wizs = [];
+	  		for (var i = 0; i < 100; i++) {
+	  			var wiz2 = new Sprite(16,16);
+		  		wiz2.x = Math.random() * 250;
+		  		wiz2.y = Math.random() * 250;
+		  		wiz2.setScaleX(Math.random() + .5);
+		  		wiz2.setScaleY(Math.random() + .5);
+				wiz2.image = game.assets['img/wizard_evil.png'];
+		  		game.rootScene.addChild(wiz2);
+		  		wizs.push(wiz2);
+	  		}
 
 	  		var bg = new Sprite(550, 400);
 	  		bg.image = game.assets['img/bg.png'];
 	  		game.rootScene.addChild(bg);
 	  		game.rootScene.setChildIndex(bg, 0);
-
-	  		var wiz1Data = wiz.generatePixelMap();
-	  		var wiz2Data = wiz2.generatePixelMap();
 
 	  		game.addEventListener('enterframe', function(e) {
 	  			bg.x -= 2;
@@ -54,14 +56,13 @@
 	  				bg.x = 0;
 	  			}
 
-	  			if (wiz.boxCollides(wiz2)) {
-	  				wiz1Data = wiz.generatePixelMap();
-		  			if (wiz.pixelPerfectCollides(wiz2, wiz1Data, wiz2Data)) {
+	  			for (var i = 0; i < wizs.length; i++) {
+	  				var wiz2 = wizs[i];
+	  				if (wiz.boxCollides(wiz2, true)) {
 		  				console.log('colidiu');
 		  				wiz2.visible = false;
-		  			}
+	  				}
 	  			}
-				
 	  		});
 
 	  		game.addEventListener('keydown', function(e) {
