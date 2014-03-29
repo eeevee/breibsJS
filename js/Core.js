@@ -1,4 +1,5 @@
 var GAME_FPS = 30;
+var DEBUG = false;
 var surface;
 
 var Core = function(gameWidth, gameHeight, gameFPS)
@@ -31,7 +32,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		this.rootScene = new Scene('root');
 		this.currentScene = this.rootScene;
 		this.addScene(this.rootScene);
-		surface = new Surface(this.gameWidth, this.gameHeight, false);
+		surface = new Surface(this.gameWidth, this.gameHeight);
 		this.render = new Render(surface.context);
 		this.keyboard = new Keyboard();
 		this.interval = setTimeout(this.tick.bind(this), 1000 / GAME_FPS);

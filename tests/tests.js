@@ -174,7 +174,7 @@ test("When I set a index to a scene child, if it is a valid index, the object th
 	ok(prevSprite3Index - nextSprite3Index == 1);
 });
 
-test("When I set a index to a scene child, if it is a invalid index, the scene must throws a Error", function() {
+test("When I set a index to a scene's child, if it is a invalid index, the scene must throws a Error", function() {
 	throws(
 		function() {
 			core.rootScene.setChildIndex(sprite2, 20);
@@ -184,7 +184,7 @@ test("When I set a index to a scene child, if it is a invalid index, the scene m
 	);
 });
 
-test("When I set a index to a scene child, if it is a invalid child, the scene must throws a SceneException", function() {
+test("When I set a index to a scene's child, if it is a invalid child, the scene must throws a SceneException", function() {
 	throws(
 		function() {
 			core.rootScene.setChildIndex(new Sprite(1,1), 2);
@@ -203,6 +203,26 @@ test("When I set a index to a scene child, if it is a invalid child, the scene m
 });
 
 test("When I add four child to core.rootScene, the childs length must be four", function() {
+	ok(core.rootScene.childs.length == 4);
+});
+
+test("When I remove the second child from a scene, the child must be removed from the childs list", function() {
+	core.rootScene.removeChildAt(1);
+	ok(core.rootScene.getChildIndex(sprite2) == -1);
+});
+
+test("When I try to remove a index that don't exists, the scene must throw a Error", function() {
+	throws(
+		function() {
+			core.rootScene.removeChildAt(20);
+		},
+			/Index out of bounds/,
+			'raised error message is Index out of bounds'
+	);
+});
+
+test("When I try to add a repeated child, the scene must be ignore", function() {
+	core.rootScene.addChild(sprite2);
 	ok(core.rootScene.childs.length == 4);
 });
 
@@ -394,10 +414,12 @@ test("When I create a tween.to and pass a ease function, the ease need to be set
 /*    TWEEN GROUP     */
 /**********************/
 var tweenGroup;
+var tweenTarget;
 
 module("TweenGroup", {
 	setup: function() {
-		tweenGroup = new TweenGroup(new Sprite());
+		tweenTarget = new Sprite(20, 20);
+		tweenGroup = new TweenGroup(tweenTarget);
 	}, teardown: function() {
 		delete tweenGroup;
 	}
@@ -430,28 +452,31 @@ asyncTest("When I added a tween by group.scaleTo, when the tween finish, the tar
 	var scaleYValue = 2;
 	var target = tweenGroup.target;
 	tweenGroup.addEventListener('complete', function(e) {
-		ok(target.scaleX == scaleXValue);
-		ok(target.scaleY == scaleYValue);
+		ok(target.getScaleX() == scaleXValue);
+		ok(target.getScaleY() == scaleYValue);
 		start();
 	});
 	tweenGroup.scaleTo(scaleXValue, scaleYValue, 4);
 });
 
 asyncTest("When I added a tween by group.to, when the tween finish, the target must be with the correct properties values", function() {
-	expect(4);
+	expect(5);
 	var xValue = 30;
 	var yValue = 20;
 	var opacityValue = .5;
+	var scaleXValue = 3;
 	var scaleYValue = 2;
 	var target = tweenGroup.target;
-	tweenGroup.addEventListener('complete', function(e) {
+	var callback = function(e) {
 		ok(target.x == xValue);
 		ok(target.y == yValue);
 		ok(target.opacity == opacityValue);
-		ok(target.scaleY == scaleYValue);
+		ok(target.getScaleX() == scaleXValue);
+		ok(target.getScaleY() == scaleYValue);
 		start();
-	});
-	tweenGroup.to(4, {x:xValue, y: yValue, opacity: opacityValue, scaleY: scaleYValue});
+	}
+	tweenGroup.addEventListener('complete', callback);
+	tweenGroup.to(4, {x:xValue, y: yValue, opacity: opacityValue, scaleX: scaleXValue, scaleY: scaleYValue});
 });
 
 asyncTest("When I add two tweens to a group, and set the group to loop, when the first tween stops, it has to stay in the end of the queue", function() {
@@ -474,9 +499,11 @@ var point;
 module("Collisions", {
 	setup: function() {
 		core = new Core();
-		core.init();
+		core.preloadAsset('../img/wizard_evil.png');
+		core.preloadAsset('../img/wizard_evil_no_bg.png');
 		sprite1 = new Sprite(10, 10);
 		sprite2 = new Sprite(10, 10);
+		core.init();
 		core.rootScene.addChild(sprite1);
 		core.rootScene.addChild(sprite2);
 	}, teardown: function() {
@@ -502,4 +529,82 @@ test("When a point is inside a sprite1, I need to know that a collision occurred
 test("When a point is outside a sprite1, I need to know that a collision don't occurred", function() {
 	point = {x: 55, y: 55};
 	ok(!sprite1.pointCollides(point));
+});
+
+asyncTest("When two sprites pixel collides, I need to know that the collision occurred", function() {
+	expect(1);
+
+	core.addEventListener('load', function(e) {
+		sprite1.image = core.assets['../img/wizard_evil_no_bg.png'];
+		sprite2.image = core.assets['../img/wizard_evil.png'];
+		sprite1.width = 24;
+		sprite1.height = 24;
+		sprite1.x = 50;
+		sprite1.y = 15;
+		sprite2.width = 32;
+		sprite2.height = 32;
+		sprite2.x = 50;
+		sprite2.y = 30;
+		ok(sprite1.boxCollides(sprite2, true));
+		start();
+	});
+});
+
+/**********************/
+/*       SPRITE       */
+/**********************/
+module("Sprite", {
+	setup: function() {
+		sprite1 = new Sprite(16, 16);
+	}, teardown: function() {
+		sprite1 = null;
+	}
+});
+
+test("When I change a sprite's width and height, the scaleX and scaleY need to change according", function() {
+	sprite1.width = 32;
+	sprite1.height = 40;
+	ok(sprite1.getScaleX() == 2);
+	ok(sprite1.getScaleY() == 2.5);
+});
+
+test("When I change a sprite's scaleX and scaleY, the width and height need to change according", function() {
+	sprite1.setScaleX(2);
+	sprite1.setScaleY(2.5);
+	ok(sprite1.width == 32);
+	ok(sprite1.height == 40);
+});
+
+/**********************/
+/*       SURFACE      */
+/**********************/
+var surface;
+
+module("Surface", {
+	setup: function() {
+		
+	}, teardown: function() {
+		if (document.body.contains(surface.canvas)) {
+			document.body.removeChild(surface.canvas);
+		}
+	}
+});
+
+asyncTest("When I create a surface, if the addToDocument parameter is true, I need to attach this to the document's body", function() {
+	expect(1);
+	surface = new Surface(100, 100);
+	setTimeout(function() {
+		ok(document.querySelector('canvas'));
+		start();
+	}, 50);
+});
+
+asyncTest("When I create a surface, if the addToDocument parameter is false, I don't need to attach this to the document's body", function() {
+	expect(1);
+	surface = new Surface(100, 100, false);
+	surface.canvas.id = 'surfaceTest';
+	setTimeout(function() {
+		ok(!document.querySelector('#surfaceTest'));
+		start();
+	}, 50);
 });

@@ -26,8 +26,8 @@ var Tween = function(target)
 		if (ease == null) {
 			ease = Ease.linear;
 		}
-		this.properties['scaleX'] = {startPos: this.target.scaleX, endPos: scaleX, ease: ease};
-		this.properties['scaleY'] = {startPos: this.target.scaleY, endPos: scaleY, ease: ease};
+		this.properties['width'] = {startPos: this.target.width, endPos: this.target.width * scaleX, ease: ease};
+		this.properties['height'] = {startPos: this.target.height, endPos: this.target.height * scaleY, ease: ease};
 		this.steps = frames;
 	};
 
@@ -42,7 +42,11 @@ var Tween = function(target)
 		}
 		
 		for (var key in properties) {
-			if (key != 'ease') {
+			if (key == 'scaleX') {
+				this.properties['width'] = {startPos: this.target['width'], endPos: this.target['width'] * properties[key], ease: ease};
+			} else if (key == 'scaleY') {
+				this.properties['height'] = {startPos: this.target['height'], endPos: this.target['height'] * properties[key], ease: ease};
+			} else if (key != 'ease') {
 				this.properties[key] = {startPos: this.target[key], endPos: properties[key], ease: ease};
 			}
 		}
