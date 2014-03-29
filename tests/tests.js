@@ -394,10 +394,12 @@ test("When I create a tween.to and pass a ease function, the ease need to be set
 /*    TWEEN GROUP     */
 /**********************/
 var tweenGroup;
+var tweenTarget;
 
 module("TweenGroup", {
 	setup: function() {
-		tweenGroup = new TweenGroup(new Sprite());
+		tweenTarget = new Sprite(20, 20);
+		tweenGroup = new TweenGroup(tweenTarget);
 	}, teardown: function() {
 		delete tweenGroup;
 	}
@@ -430,8 +432,8 @@ asyncTest("When I added a tween by group.scaleTo, when the tween finish, the tar
 	var scaleYValue = 2;
 	var target = tweenGroup.target;
 	tweenGroup.addEventListener('complete', function(e) {
-		ok(target.scaleX == scaleXValue);
-		ok(target.scaleY == scaleYValue);
+		ok(target.getScaleX() == scaleXValue);
+		ok(target.getScaleY() == scaleYValue);
 		start();
 	});
 	tweenGroup.scaleTo(scaleXValue, scaleYValue, 4);
@@ -444,13 +446,14 @@ asyncTest("When I added a tween by group.to, when the tween finish, the target m
 	var opacityValue = .5;
 	var scaleYValue = 2;
 	var target = tweenGroup.target;
-	tweenGroup.addEventListener('complete', function(e) {
+	var callback = function(e) {
 		ok(target.x == xValue);
 		ok(target.y == yValue);
 		ok(target.opacity == opacityValue);
-		ok(target.scaleY == scaleYValue);
+		ok(target.getScaleY() == scaleYValue);
 		start();
-	});
+	}
+	tweenGroup.addEventListener('complete', callback);
 	tweenGroup.to(4, {x:xValue, y: yValue, opacity: opacityValue, scaleY: scaleYValue});
 });
 
@@ -516,10 +519,10 @@ module("Sprite", {
 });
 
 test("When I change a sprite's width and height, the scaleX and scaleY need to change according", function() {
-	sprite1.setWidth(32);
-	sprite1.setHeight(40);
-	ok(sprite1.scaleX == 2);
-	ok(sprite1.scaleY == 2.5);
+	sprite1.width = 32;
+	sprite1.height = 40;
+	ok(sprite1.getScaleX() == 2);
+	ok(sprite1.getScaleY() == 2.5);
 });
 
 /**********************/

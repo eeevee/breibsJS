@@ -8,18 +8,18 @@ var CollisionManager = function(source)
 
 	this.boxCollides = function(target) {
 		if (!target.visible) return false;
-		if (_source.x < target.x + target.getWidth()  &&
-			_source.x + _source.getWidth() > target.x    &&
-			_source.y < target.y + target.getHeight() &&
-			_source.y + _source.getHeight() > target.y) {
+		if (_source.x < target.x + target.width  &&
+			_source.x + _source.width > target.x    &&
+			_source.y < target.y + target.height &&
+			_source.y + _source.height > target.y) {
 				return true;
 		}
 		return false;
 	};
 
 	this.pointCollides = function(point) {
-		if (_source.x < point.x && _source.x + _source.getWidth() > point.x &&
-			_source.y < point.y && _source.y + _source.getHeight() > point.y) {
+		if (_source.x < point.x && _source.x + _source.width > point.x &&
+			_source.y < point.y && _source.y + _source.height > point.y) {
 			return true;
 		}
 		return false;
@@ -28,15 +28,15 @@ var CollisionManager = function(source)
 	this.pixelPerfectCollides = function(target) {
 		_collisionScene.addChild(target);
 		_render.drawScene(_collisionScene);
-		//var myImageData = this.generatePixelMap(this);//surface.context.getImageData(this.x, this.y, this.getWidth(), this.getHeight());
-		//var myImageData = surface.context.getImageData(this.x, this.y, this.getWidth(), this.getHeight());
-		//var targetImageData = surface.context.getImageData(targetImageData.x, targetImageData.y, targetImageData.getWidth(), targetImageData.getHeight());
-		//var targetImageData = this.generatePixelMap(target);//surface.context.getImageData(targetImageData.x, targetImageData.y, targetImageData.getWidth(), targetImageData.getHeight());
+		//var myImageData = this.generatePixelMap(this);//surface.context.getImageData(this.x, this.y, this.width, this.height);
+		//var myImageData = surface.context.getImageData(this.x, this.y, this.width, this.height);
+		//var targetImageData = surface.context.getImageData(targetImageData.x, targetImageData.y, targetImageData.width, targetImageData.height);
+		//var targetImageData = this.generatePixelMap(target);//surface.context.getImageData(targetImageData.x, targetImageData.y, targetImageData.width, targetImageData.height);
 
 		var left = Math.max(_source.x, target.x);
 		var top = Math.max(_source.y, target.y);
-		var right = Math.max(_source.x + _source.getWidth(), target.x + target.getWidth());
-		var bottom = Math.max(_source.y + _source.getHeight(), target.y + target.getHeight());
+		var right = Math.max(_source.x + _source.width, target.x + target.width);
+		var bottom = Math.max(_source.y + _source.height, target.y + target.height);
 
 		//to ensure that the top-left corner is both above and to the left of the bottom-right corner
 		//if (xMin >= xMax || yMin >= yMax) return false;

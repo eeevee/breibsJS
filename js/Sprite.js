@@ -1,11 +1,9 @@
 var Sprite = function(width, height) 
 {
-	DisplayObject.call(this);
+	DisplayObject.call(this, width, height);
 
 	var _originalWidth = width;
 	var _originalHeight = height;
-	var _width = width;
-	var _height = height;
 	var _collisionManager = new CollisionManager(this);
 	this.tweenGroup = new TweenGroup(this);
 	this.image;
@@ -39,22 +37,20 @@ var Sprite = function(width, height)
 	};
 
 	//GETTERS
-	this.getWidth = function() {
-		return _width * this.scaleX;
+	this.getScaleX = function() {
+		return this.width / _originalWidth;
 	};
 
-	this.getHeight = function() {
-		return _height * this.scaleY;
+	this.getScaleY = function() {
+		return this.height / _originalHeight;
 	};
 
 	//SETTERS
-	this.setWidth = function(value) {
-		_width = value;
-		this.scaleX = _width / _originalWidth;
+	this.setScaleX = function(value) {
+		this.width = _originalWidth * value;
 	};
 
-	this.setHeight = function(value) {
-		_height = value;
-		this.scaleY = _height / _originalHeight;
+	this.setScaleY = function(value) {
+		this.height = _originalHeight * value;
 	};
 };

@@ -16,10 +16,9 @@ var Render = function(context)
 				if (displayObject.visible) {
 					this.context.save();
 					this.context.globalAlpha = displayObject.opacity;
-					this.context.scale(displayObject.scaleX, displayObject.scaleY);
 					var rotationInRadians = displayObject.rotation * Math.PI / 180;
 					context.rotate(rotationInRadians);
-					this.context.drawImage(displayObject.image, displayObject.x / displayObject.scaleX, displayObject.y / displayObject.scaleY);
+					this.context.drawImage(displayObject.image, displayObject.x, displayObject.y, displayObject.width, displayObject.height);
 					this.context.globalAlpha = 1;
 					this.context.restore();
 				}
