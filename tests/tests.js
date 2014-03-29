@@ -440,21 +440,23 @@ asyncTest("When I added a tween by group.scaleTo, when the tween finish, the tar
 });
 
 asyncTest("When I added a tween by group.to, when the tween finish, the target must be with the correct properties values", function() {
-	expect(4);
+	expect(5);
 	var xValue = 30;
 	var yValue = 20;
 	var opacityValue = .5;
+	var scaleXValue = 3;
 	var scaleYValue = 2;
 	var target = tweenGroup.target;
 	var callback = function(e) {
 		ok(target.x == xValue);
 		ok(target.y == yValue);
 		ok(target.opacity == opacityValue);
+		ok(target.getScaleX() == scaleXValue);
 		ok(target.getScaleY() == scaleYValue);
 		start();
 	}
 	tweenGroup.addEventListener('complete', callback);
-	tweenGroup.to(4, {x:xValue, y: yValue, opacity: opacityValue, scaleY: scaleYValue});
+	tweenGroup.to(4, {x:xValue, y: yValue, opacity: opacityValue, scaleX: scaleXValue, scaleY: scaleYValue});
 });
 
 asyncTest("When I add two tweens to a group, and set the group to loop, when the first tween stops, it has to stay in the end of the queue", function() {
@@ -523,6 +525,13 @@ test("When I change a sprite's width and height, the scaleX and scaleY need to c
 	sprite1.height = 40;
 	ok(sprite1.getScaleX() == 2);
 	ok(sprite1.getScaleY() == 2.5);
+});
+
+test("When I change a sprite's scaleX and scaleY, the width and height need to change according", function() {
+	sprite1.setScaleX(2);
+	sprite1.setScaleY(2.5);
+	ok(sprite1.width == 32);
+	ok(sprite1.height == 40);
 });
 
 /**********************/
