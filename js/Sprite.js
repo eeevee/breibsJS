@@ -8,8 +8,8 @@ var Sprite = function(width, height)
 	this.tweenGroup = new TweenGroup(this);
 	this.image;
 
-	this.boxCollides = function(target) {
-		return _collisionManager.boxCollides(target);
+	this.boxCollides = function(target, pixel) {
+		return _collisionManager.boxCollides(target, pixel);
 	};
 
 	this.pointCollides = function(point) {
