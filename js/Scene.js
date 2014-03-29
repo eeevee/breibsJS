@@ -10,7 +10,9 @@ var Scene = function(name)
 	//dar suporte a um mapa de background e um mapa de foreground
 	
 	this.addChild = function(displayObject) {
-		this.childs.push(displayObject);
+		if (this.getChildIndex(displayObject) == -1) {
+			this.childs.push(displayObject);
+		}
 	};
 
 	this.setChildIndex = function(displayObject, index) {
