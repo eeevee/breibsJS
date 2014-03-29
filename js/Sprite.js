@@ -2,8 +2,8 @@ var Sprite = function(width, height)
 {
 	DisplayObject.call(this);
 
-	this.width = width;
-	this.height = height;
+	var _width = width;
+	var _height = height;
 	this.tweenGroup = new TweenGroup(this);
 	this.image;
 	this.collisionSurface = new Surface(surface.canvas.width, surface.canvas.height, true);
@@ -86,11 +86,21 @@ var Sprite = function(width, height)
 		return map;
 	};
 
+	//GETTERS
 	this.getWidth = function() {
-		return this.width * this.scaleX;
+		return _width * this.scaleX;
 	};
 
 	this.getHeight = function() {
-		return this.height * this.scaleY;
+		return _height * this.scaleY;
+	};
+
+	//SETTERS
+	this.setWidth = function(value) {
+		_width = value;
+	};
+
+	this.setHeight = function(value) {
+		_height = value;
 	};
 };
