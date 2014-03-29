@@ -521,3 +521,36 @@ test("When I change a sprite's width and height, the scaleX and scaleY need to c
 	ok(sprite1.scaleX == 2);
 	ok(sprite1.scaleY == 2.5);
 });
+
+/**********************/
+/*       SURFACE      */
+/**********************/
+var surface;
+
+module("Surface", {
+	setup: function() {
+		
+	}, teardown: function() {
+		if (document.body.contains(surface.canvas)) {
+			document.body.removeChild(surface.canvas);
+		}
+	}
+});
+
+asyncTest("When I create a surface, if the addToDocument parameter is true, I need to attach this to the document's body", function() {
+	expect(1);
+	surface = new Surface(100, 100);
+	setTimeout(function() {
+		ok(document.querySelector('canvas'));
+		start();
+	}, 50);
+});
+
+asyncTest("When I create a surface, if the addToDocument parameter is false, I don't need to attach this to the document's body", function() {
+	expect(1);
+	surface = new Surface(100, 100, false);
+	setTimeout(function() {
+		ok(!document.querySelector('canvas'));
+		start();
+	}, 50);
+});
