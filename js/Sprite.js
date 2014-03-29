@@ -2,6 +2,8 @@ var Sprite = function(width, height)
 {
 	DisplayObject.call(this);
 
+	var _originalWidth = width;
+	var _originalHeight = height;
 	var _width = width;
 	var _height = height;
 	var _collisionManager = new CollisionManager(this);
@@ -48,9 +50,11 @@ var Sprite = function(width, height)
 	//SETTERS
 	this.setWidth = function(value) {
 		_width = value;
+		this.scaleX = _width / _originalWidth;
 	};
 
 	this.setHeight = function(value) {
 		_height = value;
+		this.scaleY = _height / _originalHeight;
 	};
 };
