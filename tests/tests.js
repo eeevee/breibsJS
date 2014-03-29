@@ -206,6 +206,26 @@ test("When I add four child to core.rootScene, the childs length must be four", 
 	ok(core.rootScene.childs.length == 4);
 });
 
+test("When I remove the second child from a scene, the child must be removed from the childs list", function() {
+	core.rootScene.removeChildAt(1);
+	ok(core.rootScene.getChildIndex(sprite2) == -1);
+});
+
+test("When I try to remove a index that don't exists, the scene must throw a Error", function() {
+	throws(
+		function() {
+			core.rootScene.removeChildAt(20);
+		},
+			/Index out of bounds/,
+			'raised error message is Index out of bounds'
+	);
+});
+
+test("When I try to add a repeated child, the scene must be ignore", function() {
+	core.rootScene.addChild(sprite2);
+	ok(core.rootScene.childs.length == 4);
+});
+
 /**********************/
 /*  EVENT DISPATCHER  */
 /**********************/
@@ -479,9 +499,11 @@ var point;
 module("Collisions", {
 	setup: function() {
 		core = new Core();
-		core.init();
+		core.preloadAsset('../img/wizard_evil.png');
+		core.preloadAsset('../img/wizard_evil_no_bg.png');
 		sprite1 = new Sprite(10, 10);
 		sprite2 = new Sprite(10, 10);
+		core.init();
 		core.rootScene.addChild(sprite1);
 		core.rootScene.addChild(sprite2);
 	}, teardown: function() {
@@ -507,6 +529,25 @@ test("When a point is inside a sprite1, I need to know that a collision occurred
 test("When a point is outside a sprite1, I need to know that a collision don't occurred", function() {
 	point = {x: 55, y: 55};
 	ok(!sprite1.pointCollides(point));
+});
+
+asyncTest("When two sprites pixel collides, I need to know that the collision occurred", function() {
+	expect(1);
+
+	core.addEventListener('load', function(e) {
+		sprite1.image = core.assets['../img/wizard_evil_no_bg.png'];
+		sprite2.image = core.assets['../img/wizard_evil.png'];
+		sprite1.width = 24;
+		sprite1.height = 24;
+		sprite1.x = 50;
+		sprite1.y = 15;
+		sprite2.width = 32;
+		sprite2.height = 32;
+		sprite2.x = 50;
+		sprite2.y = 30;
+		ok(sprite1.boxCollides(sprite2, true));
+		start();
+	});
 });
 
 /**********************/
