@@ -43,17 +43,23 @@
 	  		game.rootScene.addChild(bg);
 	  		game.rootScene.setChildIndex(bg, 0);
 
+	  		var wiz1Data = wiz.generatePixelMap();
+	  		var wiz2Data = wiz2.generatePixelMap();
+
 	  		game.addEventListener('enterframe', function(e) {
 	  			bg.x -= 2;
 	  			if (bg.x < -bg.width) {
 	  				bg.x = 0;
 	  			}
 
-/*
-	  			if (wiz.pixelPerfectCollides(wiz2)) {
-	  				console.log('colidiu');
-	  				wiz2.visible = false;
-	  			}*/
+	  			if (wiz.boxCollides(wiz2)) {
+	  				wiz1Data = wiz.generatePixelMap();
+		  			if (wiz.pixelPerfectCollides(wiz2, wiz1Data, wiz2Data)) {
+		  				console.log('colidiu');
+		  				wiz2.visible = false;
+		  			}
+	  			}
+				
 	  		});
 
 	  		game.addEventListener('keydown', function(e) {
