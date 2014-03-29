@@ -174,7 +174,7 @@ test("When I set a index to a scene child, if it is a valid index, the object th
 	ok(prevSprite3Index - nextSprite3Index == 1);
 });
 
-test("When I set a index to a scene child, if it is a invalid index, the scene must throws a Error", function() {
+test("When I set a index to a scene's child, if it is a invalid index, the scene must throws a Error", function() {
 	throws(
 		function() {
 			core.rootScene.setChildIndex(sprite2, 20);
@@ -184,7 +184,7 @@ test("When I set a index to a scene child, if it is a invalid index, the scene m
 	);
 });
 
-test("When I set a index to a scene child, if it is a invalid child, the scene must throws a SceneException", function() {
+test("When I set a index to a scene's child, if it is a invalid child, the scene must throws a SceneException", function() {
 	throws(
 		function() {
 			core.rootScene.setChildIndex(new Sprite(1,1), 2);
