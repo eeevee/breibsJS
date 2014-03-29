@@ -503,3 +503,21 @@ test("When a point is outside a sprite1, I need to know that a collision don't o
 	point = {x: 55, y: 55};
 	ok(!sprite1.pointCollides(point));
 });
+
+/**********************/
+/*       SPRITE       */
+/**********************/
+module("Sprite", {
+	setup: function() {
+		sprite1 = new Sprite(16, 16);
+	}, teardown: function() {
+		sprite1 = null;
+	}
+});
+
+test("When I change a sprite's width and height, the scaleX and scaleY need to change according", function() {
+	sprite1.setWidth(32);
+	sprite1.setHeight(40);
+	ok(sprite1.scaleX == 2);
+	ok(sprite1.scaleY == 2.5);
+});
