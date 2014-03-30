@@ -18,7 +18,16 @@ var Render = function(context)
 					this.context.globalAlpha = displayObject.opacity;
 					var rotationInRadians = displayObject.rotation * Math.PI / 180;
 					context.rotate(rotationInRadians);
-					this.context.drawImage(displayObject.image, displayObject.x, displayObject.y, displayObject.width, displayObject.height);
+					if (displayObject instanceof TextField) {
+						this.context.font = displayObject.getFont();
+						this.context.textAlign = displayObject.textAlign;
+						var measure = this.context.measureText(displayObject.text);
+						displayObject.width = measure.width;
+						displayObject.height = measure.height;
+						this.context.fillText(displayObject.text, displayObject.x, displayObject.y);
+					} else {
+						this.context.drawImage(displayObject.image, displayObject.x, displayObject.y, displayObject.width, displayObject.height);
+					}
 					this.context.globalAlpha = 1;
 					this.context.restore();
 				}
