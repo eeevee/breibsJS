@@ -21,6 +21,7 @@ var Render = function(context)
 					if (displayObject instanceof TextField) {
 						this.context.font = displayObject.getFont();
 						this.context.textAlign = displayObject.textAlign;
+						this.context.fillStyle = displayObject.fontColor;
 						var measure = this.context.measureText(displayObject.text);
 						displayObject.width = measure.width;
 						displayObject.height = measure.height;
