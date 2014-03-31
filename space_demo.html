@@ -25,14 +25,24 @@
 	  	game.preloadAsset('img/bg.png');
 	  	game.addEventListener('load', function(e) {
 	  		var wiz = new Sprite(16,16);
+	  		wiz.y = 300 - wiz.height;
 			wiz.image = game.assets['img/wizard_evil_no_bg.png'];
 	  		game.rootScene.addChild(wiz);
 	  		//wiz.tweenGroup.moveTo(100, 50, 10, Ease.easeOutQuad).moveTo(20, 10, 5).scaleTo(2, 2, 5);
 
 	  		var wizs = [];
 	  		var posX = 0;
-	  		for (var i = 0; i < 30; i++) {
-	  			
+	  		var posY = 0;
+	  		for (var i = 0; i < 32; i++) {
+	  			var wiz2 = new Sprite(16,16);
+		  		wiz2.x = posX;
+		  		posX += 18;
+		  		if (posX > 280) posX = 0;
+		  		wiz2.y = posY;
+		  		if (posX == 0) posY += 18;
+				wiz2.image = game.assets['img/wizard_evil_no_bg.png'];
+		  		game.rootScene.addChild(wiz2);
+		  		wizs.push(wiz2);
 	  		}
 
 	  		var bg = new Sprite(550, 400);
@@ -48,7 +58,7 @@
 
 	  			for (var i = 0; i < wizs.length; i++) {
 	  				var wiz2 = wizs[i];
-	  				if (wiz.boxCollides(wiz2, true)) {
+	  				if (wiz.boxCollides(wiz2, false)) {
 		  				console.log('colidiu');
 		  				wiz2.visible = false;
 	  				}
