@@ -26,10 +26,12 @@
 	  	game.preloadAsset('img/bg.png');
 	  	game.addEventListener('load', function(e) {
 	  		var wiz = new Sprite(16,16);
+	  		wiz.rotationPoint.x = 8;
+	  		wiz.rotationPoint.y = 8;
 			wiz.image = game.assets['img/wizard_evil_no_bg.png'];
 	  		game.rootScene.addChild(wiz);
 	  		//wiz.tweenGroup.moveTo(100, 50, 10, Ease.easeOutQuad).moveTo(20, 10, 5).scaleTo(2, 2, 5);
-	  		wiz.tweenGroup.to(10, {x: 300, y: 150, scaleX: 2, scaleY: 2, opacity: .5}).to(10, {x: 0, y: 300, scaleX: 1, scaleY: 1, opacity: 1}).moveTo(0,0,10).setLoop(true);
+	  		//wiz.tweenGroup.to(10, {x: 300, y: 150, scaleX: 2, scaleY: 2, opacity: .5}).to(10, {x: 0, y: 300, scaleX: 1, scaleY: 1, opacity: 1}).moveTo(0,0,10).setLoop(true);
 	  		wiz.addEventListener('mousedown', function(e) {
 	  			console.log('clicou no wiz');
 	  		});
@@ -42,7 +44,7 @@
 		  		wiz2.setScaleX(Math.random() + .5);
 		  		wiz2.setScaleY(Math.random() + .5);
 				wiz2.image = game.assets['img/wizard_evil.png'];
-		  		game.rootScene.addChild(wiz2);
+		  		//game.rootScene.addChild(wiz2);
 		  		wizs.push(wiz2);
 	  		}
 	  		var txt = new TextField('meu texto', 'Arial', 30, 'blue', 'center');
@@ -56,6 +58,13 @@
 	  		game.rootScene.setChildIndex(bg, 0);
 
 	  		game.addEventListener('enterframe', function(e) {
+	  			wiz.rotation += 3;
+	  			if (txt.width) {
+	  				//txt.rotationPoint.x = txt.width / 2;
+	  				//txt.rotationPoint.y = txt.height / 2;
+	  				txt.rotation += 3;
+	  			}
+
 	  			bg.x -= 2;
 	  			if (bg.x < -bg.width) {
 	  				bg.x = 0;
