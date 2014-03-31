@@ -8,6 +8,7 @@ var DisplayObject = function(width, height)
 	this.x = 0;
 	this.y = 0;
 	this.rotation = 0;
+	this.rotationPoint = {x: 0, y: 0};
 	this.opacity = 1;
 	this.visible = true;
 	this.width = width;
