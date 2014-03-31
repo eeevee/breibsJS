@@ -16,8 +16,12 @@ var Render = function(context)
 				if (displayObject.visible) {
 					this.context.save();
 					this.context.globalAlpha = displayObject.opacity;
+					var centerX = displayObject.x + displayObject.rotationPoint.x;
+					var centerY = displayObject.y + displayObject.rotationPoint.y;
+					this.context.translate(centerX, centerY);
 					var rotationInRadians = displayObject.rotation * Math.PI / 180;
-					context.rotate(rotationInRadians);
+					this.context.rotate(rotationInRadians);
+					this.context.translate(-centerX, -centerY);
 					if (displayObject instanceof TextField) {
 						this.context.font = displayObject.getFont();
 						this.context.textAlign = displayObject.textAlign;
