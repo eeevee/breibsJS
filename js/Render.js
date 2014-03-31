@@ -16,6 +16,11 @@ var Render = function(context)
 				if (displayObject.visible) {
 					this.context.save();
 					this.context.globalAlpha = displayObject.opacity;
+					//if TextField, the render uses the align property (left, center, etc) to rotate
+					if (displayObject instanceof TextField) {
+						displayObject.rotationPoint.x = 0;
+						displayObject.rotationPoint.y = 0;
+					}
 					var centerX = displayObject.x + displayObject.rotationPoint.x;
 					var centerY = displayObject.y + displayObject.rotationPoint.y;
 					this.context.translate(centerX, centerY);
