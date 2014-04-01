@@ -4,6 +4,7 @@ var DisplayObject = function(width, height)
 
 	this._originalWidth = width;
 	this._originalHeight = height;
+	this._collisionManager = new CollisionManager(this);
 
 	this.x = 0;
 	this.y = 0;
@@ -13,6 +14,18 @@ var DisplayObject = function(width, height)
 	this.visible = true;
 	this.width = width;
 	this.height = height;
+
+	this.boxCollides = function(target, pixel) {
+		return this._collisionManager.boxCollides(target, pixel);
+	};
+
+	this.pointCollides = function(point) {
+		return this._collisionManager.pointCollides(point);
+	};
+
+	this.pixelPerfectCollides = function(target) {
+		return this._collisionManager.pixelPerfectCollides(target);
+	};
 
 	//GETTERS
 	this.getScaleX = function() {
