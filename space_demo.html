@@ -25,12 +25,14 @@
 	  	game.preloadAsset('img/knife.png');
 	  	game.preloadAsset('img/bg.png');
 	  	game.addEventListener('load', function(e) {
+	  		//hero
 	  		var wiz = new Sprite(16,16);
 	  		wiz.y = 300 - wiz.height;
 			wiz.image = game.assets['img/wizard_evil_no_bg.png'];
 	  		game.rootScene.addChild(wiz);
 
-	  		var wizs = [];
+	  		//enemies
+	  		var enemies = [];
 	  		for (var x = 0; x < 8; x++) {
 	  			for (var y = 0; y < 3; y++) {
 	  				var wiz2 = new Sprite(16,16);
@@ -39,42 +41,74 @@
 	  				wiz2.y = 18 * y + 10
 	  				game.rootScene.addChild(wiz2);
 		  			wiz2.tweenGroup.moveTo(wiz2.x + 50, wiz2.y, 30).moveTo(wiz2.x - 50, wiz2.y, 30).setLoop(true);
-		  			wizs.push(wiz2);
+		  			enemies.push(wiz2);
 	  			}
 	  		}
 
+	  		//background
 	  		var bg = new Sprite(550, 400);
 	  		bg.image = game.assets['img/bg.png'];
 	  		game.rootScene.addChild(bg);
 	  		game.rootScene.setChildIndex(bg, 0);
 
+	  		//score label
 	  		var scoreLabel = new TextField('score: 0', 'Arial', 12, 'black', 'left');
 	  		scoreLabel.x = 10;
 	  		scoreLabel.y = 20;
 	  		var score = 0;
 	  		game.rootScene.addChild(scoreLabel);
 
+	  		//bullets
 	  		var bullets = [];
 
 	  		game.addEventListener('enterframe', function(e) {
+	  			//hero movement
+				if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
+					if (wiz.x < game.gameWidth - wiz.width) {
+						wiz.x += 5;
+					}
+	  			}
+
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
+	  				if (wiz.x > 0) {
+	  					wiz.x -= 5;
+	  				}
+	  			}
+
+	  			//bullet creation
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Space']]) {
+	  				if (bullets.length < 1) {
+	  					var knife = new Sprite(16, 16);
+		  				knife.image = game.assets['img/knife.png'];
+		  				knife.x = wiz.x + wiz.width / 2;
+		  				knife.y = wiz.y - 5;
+		  				game.rootScene.addChild(knife);
+		  				bullets.push(knife);
+	  				}
+	  			}
+
+	  			//collision checks
 	  			for (var i = 0; i < bullets.length; i++) {
 	  				var bullet = bullets[i];
+	  				//bullet out of screen
 	  				if (bullet.y < -10) {
 	  					game.rootScene.removeChildAt(game.rootScene.childs.indexOf(bullet));
 	  					bullets.splice(bullets.indexOf(bullet), 1);
+	  					continue;
 	  				}
-	  				if (!bullet.visible) continue;
 	  				bullet.y -= 8;
-	  				for (var j = 0; j < wizs.length; j++) {
-	  					var wiz2 = wizs[j];
+	  				for (var j = 0; j < enemies.length; j++) {
+	  					var wiz2 = enemies[j];
+	  					//bullet collide with enemy
 	  					if (bullet.boxCollides(wiz2, false)) {
 			  				console.log('colidiu');
-			  				wizs.splice(wizs.indexOf(wiz2), 1);
+			  				enemies.splice(enemies.indexOf(wiz2), 1);
 			  				game.rootScene.removeChildAt(game.rootScene.childs.indexOf(wiz2));
 			  				bullets.splice(bullets.indexOf(bullet), 1);
 			  				game.rootScene.removeChildAt(game.rootScene.childs.indexOf(bullet));
 			  				score += 1;
 			  				scoreLabel.text = 'score: ' + score;
+			  				// all enemies destroyed, end game screen
 			  				if (score == 24) {
 			  					var scene = new Scene('End game');
 			  					scene.addChild(scoreLabel);
@@ -87,25 +121,6 @@
 			  				break;
 		  				}
 	  				}
-	  			}
-	  		});
-
-	  		game.addEventListener('keydown', function(e) {
-	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
-	  				wiz.x += 5;
-	  			}
-
-	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
-	  				wiz.x -= 5;
-	  			}
-
-	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Space']]) {
-	  				var knife = new Sprite(16, 16);
-	  				knife.image = game.assets['img/knife.png'];
-	  				knife.x = wiz.x + wiz.width / 2;
-	  				knife.y = wiz.y - 5;
-	  				game.rootScene.addChild(knife);
-	  				bullets.push(knife);
 	  			}
 	  		});
 	  	});
