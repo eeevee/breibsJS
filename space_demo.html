@@ -22,27 +22,25 @@
 	  <script type="text/javascript">
 	  	var game = new Core(300, 300, 30);
 	  	game.preloadAsset('img/wizard_evil_no_bg.png');
+	  	game.preloadAsset('img/knife.png');
 	  	game.preloadAsset('img/bg.png');
 	  	game.addEventListener('load', function(e) {
 	  		var wiz = new Sprite(16,16);
 	  		wiz.y = 300 - wiz.height;
 			wiz.image = game.assets['img/wizard_evil_no_bg.png'];
 	  		game.rootScene.addChild(wiz);
-	  		//wiz.tweenGroup.moveTo(100, 50, 10, Ease.easeOutQuad).moveTo(20, 10, 5).scaleTo(2, 2, 5);
 
 	  		var wizs = [];
-	  		var posX = 0;
-	  		var posY = 0;
-	  		for (var i = 0; i < 32; i++) {
-	  			var wiz2 = new Sprite(16,16);
-		  		wiz2.x = posX;
-		  		posX += 18;
-		  		if (posX > 280) posX = 0;
-		  		wiz2.y = posY;
-		  		if (posX == 0) posY += 18;
-				wiz2.image = game.assets['img/wizard_evil_no_bg.png'];
-		  		game.rootScene.addChild(wiz2);
-		  		wizs.push(wiz2);
+	  		for (var x = 0; x < 8; x++) {
+	  			for (var y = 0; y < 3; y++) {
+	  				var wiz2 = new Sprite(16,16);
+	  				wiz2.image = game.assets['img/wizard_evil_no_bg.png'];
+	  				wiz2.x = 18 * x + 80;
+	  				wiz2.y = 18 * y + 10
+	  				game.rootScene.addChild(wiz2);
+		  			wiz2.tweenGroup.moveTo(wiz2.x + 50, wiz2.y, 30).moveTo(wiz2.x - 50, wiz2.y, 30).setLoop(true);
+		  			wizs.push(wiz2);
+	  			}
 	  		}
 
 	  		var bg = new Sprite(550, 400);
@@ -50,17 +48,44 @@
 	  		game.rootScene.addChild(bg);
 	  		game.rootScene.setChildIndex(bg, 0);
 
-	  		game.addEventListener('enterframe', function(e) {
-	  			bg.x -= 2;
-	  			if (bg.x < -bg.width) {
-	  				bg.x = 0;
-	  			}
+	  		var scoreLabel = new TextField('score: 0', 'Arial', 12, 'black', 'left');
+	  		scoreLabel.x = 10;
+	  		scoreLabel.y = 20;
+	  		var score = 0;
+	  		game.rootScene.addChild(scoreLabel);
 
-	  			for (var i = 0; i < wizs.length; i++) {
-	  				var wiz2 = wizs[i];
-	  				if (wiz.boxCollides(wiz2, false)) {
-		  				console.log('colidiu');
-		  				wiz2.visible = false;
+	  		var bullets = [];
+
+	  		game.addEventListener('enterframe', function(e) {
+	  			for (var i = 0; i < bullets.length; i++) {
+	  				var bullet = bullets[i];
+	  				if (bullet.y < -10) {
+	  					game.rootScene.removeChildAt(game.rootScene.childs.indexOf(bullet));
+	  					bullets.splice(bullets.indexOf(bullet), 1);
+	  				}
+	  				if (!bullet.visible) continue;
+	  				bullet.y -= 8;
+	  				for (var j = 0; j < wizs.length; j++) {
+	  					var wiz2 = wizs[j];
+	  					if (bullet.boxCollides(wiz2, false)) {
+			  				console.log('colidiu');
+			  				wizs.splice(wizs.indexOf(wiz2), 1);
+			  				game.rootScene.removeChildAt(game.rootScene.childs.indexOf(wiz2));
+			  				bullets.splice(bullets.indexOf(bullet), 1);
+			  				game.rootScene.removeChildAt(game.rootScene.childs.indexOf(bullet));
+			  				score += 1;
+			  				scoreLabel.text = 'score: ' + score;
+			  				if (score == 24) {
+			  					var scene = new Scene('End game');
+			  					scene.addChild(scoreLabel);
+			  					scoreLabel.fontSize = 30;
+			  					scoreLabel.x = 80;
+			  					scoreLabel.y = 150;
+			  					game.addScene(scene);
+			  					game.changeScene('End game');
+			  				}
+			  				break;
+		  				}
 	  				}
 	  			}
 	  		});
@@ -74,8 +99,13 @@
 	  				wiz.x -= 5;
 	  			}
 
-	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
-	  				wiz.y -= 5;
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Space']]) {
+	  				var knife = new Sprite(16, 16);
+	  				knife.image = game.assets['img/knife.png'];
+	  				knife.x = wiz.x + wiz.width / 2;
+	  				knife.y = wiz.y - 5;
+	  				game.rootScene.addChild(knife);
+	  				bullets.push(knife);
 	  			}
 	  		});
 	  	});
