@@ -73,7 +73,7 @@ var GameScene = function(name)
 
 	var bullets = [];
 
-	this.frameHandler = function(e) {
+	this.frameHandler = function _frameHandler(e) {
 		if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
 			if (hero.x < surface.canvas.width - hero.width) {
 				hero.x += 5;
@@ -85,7 +85,7 @@ var GameScene = function(name)
 				hero.x -= 5;
 			}
 		}
-
+		
 		if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Space']]) {
 			if (bullets.length < 1) {
 				var knife = new Knife(16, 16,  core.assets['../img/knife.png']);
@@ -117,18 +117,17 @@ var GameScene = function(name)
   				this.removeChildAt(this.childs.indexOf(bullet));
   				score += 1;
   				scoreLabel.text = 'score: ' + score;
-  				// all enemies destroyed, end game screen
-  				/*
+  				// all enemies destroyed, end game screen				
   				if (score == 24) {
   					var scene = new Scene('End game');
   					scene.addChild(scoreLabel);
   					scoreLabel.fontSize = 30;
   					scoreLabel.x = 80;
   					scoreLabel.y = 150;
+  					this.removeEventListener('enterframe', _frameHandler);
   					game.addScene(scene);
   					game.changeScene('End game');
   				}
-  				*/
   				break;
 				}
 			}
