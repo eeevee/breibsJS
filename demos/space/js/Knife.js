@@ -2,5 +2,5 @@ var Knife = function(width, height, image)
 {
 	Sprite.call(this, width, height, image);
 
-	this.velocity = 3;
+	this.velocity = 6;
 };
