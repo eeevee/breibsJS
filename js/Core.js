@@ -96,7 +96,9 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	this.tick = function() {
 		this.render.drawScene(this.currentScene);
 		this.interval = setTimeout(this.tick.bind(this), 1000 / GAME_FPS);
-		this.dispatchEvent(new Event('enterframe'));
+		var e = new Event('enterframe');
+		this.dispatchEvent(e);
+		this.currentScene.dispatchEvent(e);
 	};
 
 	//USER INPUTS
