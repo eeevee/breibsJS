@@ -93,6 +93,10 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		}
 	};
 
+	this.removeScene = function(sceneName) {
+		delete this.scenes[sceneName];
+	};
+
 	this.tick = function() {
 		this.render.drawScene(this.currentScene);
 		this.interval = setTimeout(this.tick.bind(this), 1000 / GAME_FPS);
