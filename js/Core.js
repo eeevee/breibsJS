@@ -1,11 +1,13 @@
 var GAME_FPS = 30;
 var DEBUG = false;
 var surface;
+var core;
 
 var Core = function(gameWidth, gameHeight, gameFPS)
 {
 	EventDispatcher.call(this);
 
+	core = this;
 	//GLOBAL VARS
 	GAME_FPS = gameFPS;
 
