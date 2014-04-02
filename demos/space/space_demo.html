@@ -6,18 +6,30 @@
 	</head>
 	<body>
 	  <script src="engine-0.1.6.min.js"></script>
-	  <script src="js/GameScene.js"></script>
-	  <script src="js/Wizard.js"></script>
-	  <script src="js/Knife.js"></script>
+	  <script src="js/SpaceDemo.js"></script>
 	  <script type="text/javascript">
 	  	var game = new Core(300, 300, 30);
 	  	game.preloadAsset('../img/wizard_evil_no_bg.png');
 	  	game.preloadAsset('../img/knife.png');
 	  	game.preloadAsset('../img/bg.png');
 	  	game.addEventListener('load', function(e) {
-			var gameScene = new GameScene('game');
-			game.addScene(gameScene);
-			game.changeScene('game');
+	  		game.addEventListener('changescene', function(e) {
+	  			if (e.data instanceof TitleScene) {
+	  				var gameScene = new GameScene('game');
+					game.addScene(gameScene);
+					game.changeScene('game');
+					game.currentScene.addChild(bg);
+  					game.currentScene.setChildIndex(bg, 0);
+	  			}
+	  		});
+
+	  		var titleScene = new TitleScene('title');
+	  		game.addScene(titleScene);
+	  		game.changeScene('title');
+
+			//var gameScene = new GameScene('game');
+			//game.addScene(gameScene);
+			//game.changeScene('game');
 	  		
 	  		var bg = new Sprite(550, 400);
 	  		bg.image = game.assets['../img/bg.png'];
