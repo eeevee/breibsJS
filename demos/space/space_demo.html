@@ -14,13 +14,33 @@
 	  	game.preloadAsset('../img/bg.png');
 	  	game.addEventListener('load', function(e) {
 	  		game.addEventListener('changescene', function(e) {
-	  			if (e.data instanceof TitleScene) {
-	  				var gameScene = new GameScene('game');
-					game.addScene(gameScene);
-					game.changeScene('game');
-					game.currentScene.addChild(bg);
-  					game.currentScene.setChildIndex(bg, 0);
+	  			switch (e.data) {
+	  				case 'game':
+	  					var gameScene = core.getScene('game');
+	  					if (gameScene == null) {
+	  						gameScene = new GameScene('game');
+							game.addScene(gameScene);
+	  					}
+	  					gameScene.init();
+						game.changeScene('game');
+						game.currentScene.addChild(bg);
+	  					game.currentScene.setChildIndex(bg, 0);
+	  					break;
+
+	  				case 'score':
+	  					var scene = core.getScene('End game');
+	  					if (scene == null) {
+	  						scene = new ScoreScene('End game', e.score);
+							game.addScene(scene);
+	  					} else {
+	  						scene.setLabel('score: ' + e.score);
+	  					}
+	  					core.changeScene('End game');
+	  					game.currentScene.addChild(bg);
+	  					game.currentScene.setChildIndex(bg, 0);
+	  					break;
 	  			}
+	  				
 	  		});
 
 	  		var titleScene = new TitleScene('title');
@@ -31,43 +51,6 @@
 	  		bg.image = game.assets['../img/bg.png'];
 	  		game.currentScene.addChild(bg);
 	  		game.currentScene.setChildIndex(bg, 0);
-/*
-	  			//collision checks
-	  			for (var i = 0; i < bullets.length; i++) {
-	  				var bullet = bullets[i];
-	  				//bullet out of screen
-	  				if (bullet.y < -10) {
-	  					game.rootScene.removeChildAt(game.rootScene.childs.indexOf(bullet));
-	  					bullets.splice(bullets.indexOf(bullet), 1);
-	  					continue;
-	  				}
-	  				bullet.y -= 8;
-	  				for (var j = 0; j < enemies.length; j++) {
-	  					var wiz2 = enemies[j];
-	  					//bullet collide with enemy
-	  					if (bullet.boxCollides(wiz2, false)) {
-			  				console.log('colidiu');
-			  				enemies.splice(enemies.indexOf(wiz2), 1);
-			  				game.rootScene.removeChildAt(game.rootScene.childs.indexOf(wiz2));
-			  				bullets.splice(bullets.indexOf(bullet), 1);
-			  				game.rootScene.removeChildAt(game.rootScene.childs.indexOf(bullet));
-			  				score += 1;
-			  				scoreLabel.text = 'score: ' + score;
-			  				// all enemies destroyed, end game screen
-			  				if (score == 24) {
-			  					var scene = new Scene('End game');
-			  					scene.addChild(scoreLabel);
-			  					scoreLabel.fontSize = 30;
-			  					scoreLabel.x = 80;
-			  					scoreLabel.y = 150;
-			  					game.addScene(scene);
-			  					game.changeScene('End game');
-			  				}
-			  				break;
-		  				}
-	  				}
-	  			}
-	  		});*/
 	  	});
 	  	game.init();
 	  </script>
