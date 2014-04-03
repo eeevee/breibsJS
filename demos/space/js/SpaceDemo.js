@@ -58,7 +58,7 @@ var GameScene = function(name)
 			this.removeChildAt(0);
 		}
 
-		score = 23;
+		score = 0;
 		scoreLabel.text = 'score: ' + score;
 		scoreLabel.x = 10;
 		scoreLabel.y = 20;
