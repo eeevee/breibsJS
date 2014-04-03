@@ -35,6 +35,11 @@ var Render = function(context)
 						displayObject.width = measure.width;
 						displayObject.height = measure.height;
 						this.context.fillText(displayObject.text, displayObject.x, displayObject.y);
+					} else if(displayObject instanceof SpriteSheet) {
+						this.context.drawImage(displayObject.image, displayObject.getCol() * displayObject.width, 
+							displayObject.getRow() * displayObject.height, displayObject.width, displayObject.height, displayObject.x, displayObject.y,
+							 displayObject.width, displayObject.height);
+						displayObject.update();
 					} else {
 						this.context.drawImage(displayObject.image, displayObject.x, displayObject.y, displayObject.width, displayObject.height);
 					}
