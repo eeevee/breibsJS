@@ -24,10 +24,43 @@
 	  	var game = new Core(300, 300, 30);
 	  	game.preloadAsset('img/sprite_sheet.png');
 	  	game.addEventListener('load', function(e) {
-	  		var sheet = new SpriteSheet(32, 48, game.assets['img/sprite_sheet.png'], 9);
-	  		sheet.animations =  {down: {frames: [0, 1, 2, 2, 1, 0], next: 'up'}, up: {frames: [9, 10, 11, 11, 10, 9], speed: 3}};
-	  		sheet.setCurrentAnimation('down');
+	  		var sheet = new SpriteSheet(32, 48, game.assets['img/sprite_sheet.png'], 4);
+	  		sheet.animations =  {down: {frames: [0, 1, 2, 2, 1, 0]}, up: {frames: [9, 10, 11, 11, 10, 9]}, left: {frames: [3, 4, 5, 5, 4, 3]}, right: {frames: [6, 7, 8, 8, 7, 6]}};
 	  		game.rootScene.addChild(sheet);
+
+	  		game.addEventListener('enterframe', function(e) {
+	  			if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
+	  				if (sheet.currentAnimation != 'up') {
+	  					sheet.setCurrentAnimation('up');
+	  				}
+					if (sheet.y > 0) {
+						sheet.y -= 5;
+					}
+				} else if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
+					if (sheet.currentAnimation != 'down') {
+	  					sheet.setCurrentAnimation('down');
+	  				}
+					if (sheet.y < game.gameHeight - sheet.height) {
+						sheet.y += 5;
+					}
+				} else if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
+					if (sheet.currentAnimation != 'right') {
+	  					sheet.setCurrentAnimation('right');
+	  				}
+					if (sheet.x < game.gameWidth - sheet.width) {
+						sheet.x += 5;
+					}
+				} else if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
+					if (sheet.currentAnimation != 'left') {
+	  					sheet.setCurrentAnimation('left');
+	  				}
+					if (sheet.x > 0) {
+						sheet.x -= 5;
+					}
+				} else if (!Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']] && !Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']] && !Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']] && !Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
+					sheet.stop();
+				}
+	  		});
 	  	});
 	  	game.init();
 	  </script>
