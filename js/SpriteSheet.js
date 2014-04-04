@@ -39,6 +39,9 @@ var SpriteSheet = function(width, height, image, speed)
 		this.currentAnimation = animation;
 		currentFrame = this.animations[animation].frames[0];
 		animationCount = 0;
+		if (this.animations[animation].hasOwnProperty('speed')) {
+			speed = this.animations[animation]['speed'];
+		}
 	};
 
 	this.getCol = function() {
