@@ -7,11 +7,13 @@ var SpriteSheet = function(width, height, image, speed)
 	var count = 0;
 	var framesPerRow = Math.floor(image.width / this.width);
 	var speed = speed;
+	var stopped = true;
 
 	this.animations = {};
 	this.currentAnimation = '';
 
 	this.update = function() {
+		if (stopped) return;
 		count ++;
 		if (count < speed) return;
 		if (count == speed) count = 0;
@@ -42,6 +44,21 @@ var SpriteSheet = function(width, height, image, speed)
 		if (this.animations[animation].hasOwnProperty('speed')) {
 			speed = this.animations[animation]['speed'];
 		}
+		stopped = false;
+	};
+
+	this.stop = function(stopFrame) {
+		if (stopFrame == null) {
+			if (this.currentAnimation.length) {
+				currentFrame = this.animations[this.currentAnimation].frames[0];
+			} else {
+				currentFrame = 0;
+			}
+		} else {
+			currentFrame = stopFrame;
+		}
+
+		stopped = true;
 	};
 
 	this.getCol = function() {
