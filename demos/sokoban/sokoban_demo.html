@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title>Sokoban Demo</title>
+	</head>
+	<body>
+	  <script src="js/engine-0.1.7.min.js"></script>
+	  <script src="js/Sokoban.js"></script>
+	  <script type="text/javascript">
+	  	var game = new Core(320, 320, 8);
+	  	game.preloadAsset('img/wizard.png');
+	  	game.preloadAsset('img/wall.png');
+	  	game.preloadAsset('img/box.png');
+	  	game.preloadAsset('img/knife.png');
+	  	game.addEventListener('load', function(e) {
+	  		var map = new TileMap(Maps.map1, 16, 16, game.rootScene);
+	  		map.boundaries.left = 16;
+	  		map.boundaries.right = 144;
+	  		map.boundaries.top = 16;
+	  		map.boundaries.down = 128;
+	  		map.startHeroMovement();
+	  	});
+	  	game.init();
+	  </script>
+	</body>
+</html>
