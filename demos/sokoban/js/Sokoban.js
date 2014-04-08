@@ -18,6 +18,24 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 	this.positionIncrement = 16;
 
 	var keyboardHandler = function(e) {
+		if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
+			if (canMove(this.hero, 'left')) {
+				this.hero.x -= this.positionIncrement;
+			}
+		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
+			if (canMove(this.hero, 'right')) {
+				this.hero.x += this.positionIncrement;
+			}
+		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
+			if (canMove(this.hero, 'up')) {
+				this.hero.y -= this.positionIncrement;
+			}
+		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
+			if (canMove(this.hero, 'down')) {
+				this.hero.y += this.positionIncrement;
+			}
+		}
+		/*
 		if (this.hero == null) return;
 		if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
 			if (!this.checkWallCollision(this.hero, 'up')) {
@@ -44,8 +62,10 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 				}
 			}
 		}
+		*/
 	};
 
+/*
 	this.checkWallCollision = function(target, direction) {
 		if (direction == 'left') {
 			if (target.x <= this.boundaries.left) return true;
@@ -106,25 +126,33 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 
 		return true;
 	};
-
-	this.getNextTileByDirection = function(direction) {
+*/
+	var getNextTileByDirection = function(target, direction) {
 		var row = null;
 		var col = null;
 		if (direction == 'left') {
-			row = Math.floor((this.hero.x - tileWidth) / tileWidth);
-			col = Math.floor((this.hero.y) / tileWidth);
+			row = Math.floor((target.x - tileWidth) / tileWidth);
+			col = Math.floor((target.y) / tileWidth);
 		} else if (direction == 'right') {
-			row = Math.floor((this.hero.x + tileWidth) / tileWidth);
-			col = Math.floor((this.hero.y) / tileWidth);
+			row = Math.floor((target.x + tileWidth) / tileWidth);
+			col = Math.floor((target.y) / tileWidth);
 		} else if (direction == 'up') {
-			row = Math.floor((this.hero.x) / tileWidth);
-			col = Math.floor((this.hero.y - tileHeight) / tileWidth);
+			row = Math.floor((target.x) / tileWidth);
+			col = Math.floor((target.y - tileHeight) / tileWidth);
 		} else if (direction == 'down') {
-			row = Math.floor((this.hero.x) / tileWidth);
-			col = Math.floor((this.hero.y + tileHeight) / tileWidth);
+			row = Math.floor((target.x) / tileWidth);
+			col = Math.floor((target.y + tileHeight) / tileWidth);
 		}
 
-		return {row: row, col: col};
+		return map[col][row];
+	};
+
+	var canMove = function(target, direction) {
+		var nextTile = getNextTileByDirection(target, direction);
+		var nextNextTile = getNextTileByDirection(nextTile, direction);
+		if (nextTile.type == 1) return false;
+		if (nextTile.type == 3 && (nextNextTile.type == 1 || nextNextTile.type == 3)) return false;
+		return true;
 	};
 
 	this.load = function(map, tileWidth, tileHeight, scene) {
@@ -158,6 +186,9 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 					s.y = y * tileHeight;
 					scene.addChild(s);
 					s.type = 3;
+					map[y][x] = s;
+				} else {
+					var s = {x: x * tileWidth, y: y * tileHeight, type: 0};
 					map[y][x] = s;
 				}
 			}
