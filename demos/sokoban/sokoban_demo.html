@@ -20,10 +20,6 @@
 	  	game.preloadAsset('img/knife.png');
 	  	game.addEventListener('load', function(e) {
 	  		var map = new TileMap(Maps.map1, 16, 16, game.rootScene);
-	  		map.boundaries.left = 16;
-	  		map.boundaries.right = 144;
-	  		map.boundaries.top = 16;
-	  		map.boundaries.down = 128;
 	  		map.startHeroMovement();
 	  	});
 	  	game.init();

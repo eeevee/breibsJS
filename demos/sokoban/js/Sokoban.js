@@ -14,120 +14,67 @@ var Maps = {
 var TileMap = function(map, tileWidth, tileHeight, scene)
 {
 	this.hero = null;
-	this.boundaries = {top: 0, right: 0, down: 0, left:0};
 	this.positionIncrement = 16;
 
 	var keyboardHandler = function(e) {
 		if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
 			if (canMove(this.hero, 'left')) {
+				var nextTile = getNextTileByDirection(this.hero, 'left');
+				if (nextTile.type == 3) {
+					var dummy = {x: nextTile.x, y: nextTile.y, type: 0};
+					nextTile.x -= this.positionIncrement;
+					var pt = getNextPointByDirection(this.hero, 'left');
+					map[pt.col][pt.row - 1] = map[pt.col][pt.row]
+					map[pt.col][pt.row] = dummy;
+				}
 				this.hero.x -= this.positionIncrement;
 			}
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
 			if (canMove(this.hero, 'right')) {
+				var nextTile = getNextTileByDirection(this.hero, 'right');
+				if (nextTile.type == 3) {
+					var dummy = {x: nextTile.x, y: nextTile.y, type: 0};
+					nextTile.x += this.positionIncrement;
+					var pt = getNextPointByDirection(this.hero, 'right');
+					map[pt.col][pt.row + 1] = map[pt.col][pt.row]
+					map[pt.col][pt.row] = dummy;
+				}
 				this.hero.x += this.positionIncrement;
 			}
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
 			if (canMove(this.hero, 'up')) {
+				var nextTile = getNextTileByDirection(this.hero, 'up');
+				if (nextTile.type == 3) {
+					var dummy = {x: nextTile.x, y: nextTile.y, type: 0};
+					nextTile.y -= this.positionIncrement;
+					var pt = getNextPointByDirection(this.hero, 'up');
+					map[pt.col - 1][pt.row] = map[pt.col][pt.row]
+					map[pt.col][pt.row] = dummy;
+				}
 				this.hero.y -= this.positionIncrement;
 			}
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
 			if (canMove(this.hero, 'down')) {
+				var nextTile = getNextTileByDirection(this.hero, 'down');
+				if (nextTile.type == 3) {
+					var dummy = {x: nextTile.x, y: nextTile.y, type: 0};
+					nextTile.y += this.positionIncrement;
+					var pt = getNextPointByDirection(this.hero, 'down');
+					map[pt.col + 1][pt.row] = map[pt.col][pt.row]
+					map[pt.col][pt.row] = dummy;
+				}
 				this.hero.y += this.positionIncrement;
 			}
 		}
-		/*
-		if (this.hero == null) return;
-		if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
-			if (!this.checkWallCollision(this.hero, 'up')) {
-				if (this.checkItemCollision('up')) {
-					this.hero.y -= this.positionIncrement;
-				}
-			}
-		} else if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
-			if (!this.checkWallCollision(this.hero, 'down')) {
-				if (this.checkItemCollision('down')) {
-					this.hero.y += this.positionIncrement;
-				}
-			}
-		} else if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
-			if (!this.checkWallCollision(this.hero, 'right')) {
-				if (this.checkItemCollision('right')) {
-					this.hero.x += this.positionIncrement;
-				}
-			}
-		} else if(Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
-			if (!this.checkWallCollision(this.hero, 'left')) {
-				if (this.checkItemCollision('left')) {
-					this.hero.x -= this.positionIncrement;
-				}
-			}
-		}
-		*/
 	};
 
-/*
-	this.checkWallCollision = function(target, direction) {
-		if (direction == 'left') {
-			if (target.x <= this.boundaries.left) return true;
-		} else if (direction == 'right') {
-			if (target.x >= this.boundaries.right) return true;
-		} else if (direction == 'up') {
-			if (target.y <= this.boundaries.top) return true;
-		} else if (direction == 'down') {
-			if (target.y >= this.boundaries.down) return true;
-		}
-		var pt = this.getNextTileByDirection(direction);
-		if (map[pt.col][pt.row].type == 1) return true;
-		return false;
-	};
-
-	this.checkItemCollision = function(direction) {
-		var pt = this.getNextTileByDirection(direction);
-		if (map[pt.col][pt.row].type == 3) {
-			if (direction == 'left') {
-				if (!this.checkWallCollision(map[pt.col][pt.row], direction)) {
-					map[pt.col][pt.row].x -= this.positionIncrement;
-					map[pt.col][pt.row - 1] = map[pt.col][pt.row]
-					map[pt.col][pt.row] = 0;
-					return true;
-				} else {
-					return false;
-				}
-				
-			} else if (direction == 'right') {
-				if (!this.checkWallCollision(map[pt.col][pt.row], direction)) {
-					map[pt.col][pt.row].x += this.positionIncrement;
-					map[pt.col][pt.row + 1] = map[pt.col][pt.row]
-					map[pt.col][pt.row] = 0;
-					return true;
-				} else {
-					return false;
-				}
-			} else if (direction == 'up') {
-				if (!this.checkWallCollision(map[pt.col][pt.row], direction)) {
-					map[pt.col][pt.row].y -= this.positionIncrement;
-					map[pt.col - 1][pt.row] = map[pt.col][pt.row]
-					map[pt.col][pt.row] = 0;
-					return true;
-				} else {
-					return false;
-				}
-			} else if (direction == 'down') {
-				if (!this.checkWallCollision(map[pt.col][pt.row], direction)) {
-					map[pt.col][pt.row].y += this.positionIncrement;
-					map[pt.col + 1][pt.row] = map[pt.col][pt.row]
-					map[pt.col][pt.row] = 0;
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-
-		return true;
-	};
-*/
 	var getNextTileByDirection = function(target, direction) {
+		var pt = getNextPointByDirection(target, direction);
+		if (pt.col < 0 || pt.row < 0 || pt.col >= map.length || pt.row >= map[0].length) return;
+		return map[pt.col][pt.row];
+	};
+
+	var getNextPointByDirection = function(target, direction) {
 		var row = null;
 		var col = null;
 		if (direction == 'left') {
@@ -144,14 +91,14 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 			col = Math.floor((target.y + tileHeight) / tileWidth);
 		}
 
-		return map[col][row];
+		return {col: col, row: row};
 	};
 
 	var canMove = function(target, direction) {
 		var nextTile = getNextTileByDirection(target, direction);
 		var nextNextTile = getNextTileByDirection(nextTile, direction);
-		if (nextTile.type == 1) return false;
-		if (nextTile.type == 3 && (nextNextTile.type == 1 || nextNextTile.type == 3)) return false;
+		if (nextTile.type == 1 || nextTile.type == 6) return false;
+		if (nextTile.type == 3 && (nextNextTile.type == 1 || nextNextTile.type == 3 || nextNextTile.type == 6)) return false;
 		return true;
 	};
 
