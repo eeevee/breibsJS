@@ -21,11 +21,7 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 			if (canMove(this.hero, 'left')) {
 				var nextTile = getNextTileByDirection(this.hero, 'left');
 				if (nextTile.type == 3) {
-					var dummy = {x: nextTile.x, y: nextTile.y, type: 0};
-					nextTile.x -= this.positionIncrement;
-					var pt = getNextPointByDirection(this.hero, 'left');
-					map[pt.col][pt.row - 1] = map[pt.col][pt.row]
-					map[pt.col][pt.row] = dummy;
+					moveItem(nextTile, 'left');
 				}
 				this.hero.x -= this.positionIncrement;
 			}
@@ -33,11 +29,7 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 			if (canMove(this.hero, 'right')) {
 				var nextTile = getNextTileByDirection(this.hero, 'right');
 				if (nextTile.type == 3) {
-					var dummy = {x: nextTile.x, y: nextTile.y, type: 0};
-					nextTile.x += this.positionIncrement;
-					var pt = getNextPointByDirection(this.hero, 'right');
-					map[pt.col][pt.row + 1] = map[pt.col][pt.row]
-					map[pt.col][pt.row] = dummy;
+					moveItem(nextTile, 'right');
 				}
 				this.hero.x += this.positionIncrement;
 			}
@@ -45,11 +37,7 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 			if (canMove(this.hero, 'up')) {
 				var nextTile = getNextTileByDirection(this.hero, 'up');
 				if (nextTile.type == 3) {
-					var dummy = {x: nextTile.x, y: nextTile.y, type: 0};
-					nextTile.y -= this.positionIncrement;
-					var pt = getNextPointByDirection(this.hero, 'up');
-					map[pt.col - 1][pt.row] = map[pt.col][pt.row]
-					map[pt.col][pt.row] = dummy;
+					moveItem(nextTile, 'up');
 				}
 				this.hero.y -= this.positionIncrement;
 			}
@@ -57,11 +45,7 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 			if (canMove(this.hero, 'down')) {
 				var nextTile = getNextTileByDirection(this.hero, 'down');
 				if (nextTile.type == 3) {
-					var dummy = {x: nextTile.x, y: nextTile.y, type: 0};
-					nextTile.y += this.positionIncrement;
-					var pt = getNextPointByDirection(this.hero, 'down');
-					map[pt.col + 1][pt.row] = map[pt.col][pt.row]
-					map[pt.col][pt.row] = dummy;
+					moveItem(nextTile, 'down');
 				}
 				this.hero.y += this.positionIncrement;
 			}
@@ -94,12 +78,44 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 		return {col: col, row: row};
 	};
 
+	var getTargetPoint = function(target) {
+		return {col: Math.floor(target.y / tileWidth), row: Math.floor(target.x / tileWidth)};
+	};
+
 	var canMove = function(target, direction) {
 		var nextTile = getNextTileByDirection(target, direction);
 		var nextNextTile = getNextTileByDirection(nextTile, direction);
 		if (nextTile.type == 1 || nextTile.type == 6) return false;
 		if (nextTile.type == 3 && (nextNextTile.type == 1 || nextNextTile.type == 3 || nextNextTile.type == 6)) return false;
 		return true;
+	};
+
+	var moveItem = function(target, direction) {
+		var nextNextTile = getNextTileByDirection(target, direction);
+		var dummy = {x: target.x, y: target.y, type: 0};
+		var pt = getTargetPoint(target, direction);
+		//get the box coordinates
+		var newPt = getNextPointByDirection(target, direction);
+		if (nextNextTile.type == 5) {
+			//remove item and opened box sprites
+			scene.removeChildAt(scene.getChildIndex(target));
+			scene.removeChildAt(scene.getChildIndex(nextNextTile));
+			//create a chest closed sprite
+			s = new Sprite(tileWidth, tileHeight, core.assets['img/chest_closed.png']);
+			s.x = newPt.row * tileWidth;
+			s.y = newPt.col * tileHeight;
+			scene.addChild(s);
+			s.type = 6;
+			//add the closed chest to map
+			map[newPt.col][newPt.row] = s;
+		} else {
+			//move the item
+			target.x = newPt.row * tileWidth;
+			target.y = newPt.col * tileHeight;
+			map[newPt.col][newPt.row] = target;
+		}
+		//clear the old item position
+		map[pt.col][pt.row] = dummy;
 	};
 
 	this.load = function(map, tileWidth, tileHeight, scene) {
@@ -121,7 +137,7 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 					s.type = 9;
 					map[y][x] = s;
 				} else if (map[y][x] == 5) {
-					var s = new Sprite(tileWidth, tileHeight, core.assets['img/box.png']);
+					var s = new Sprite(tileWidth, tileHeight, core.assets['img/chest_opened.png']);
 					s.x = x * tileWidth;
 					s.y = y * tileHeight;
 					scene.addChild(s);
