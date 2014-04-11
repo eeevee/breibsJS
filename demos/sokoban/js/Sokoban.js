@@ -25,24 +25,40 @@ var Maps = {
 					[1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1],
 					[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
 			chests: 2
+			},
+	map3:  {
+			tiles: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+					[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+					[1, 0, 0, 3, 1, 0, 3, 0, 0, 0, 1, 1, 1, 1, 1],
+					[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+					[1, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+					[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+					[1, 0, 9, 0, 0, 0, 0, 5, 0, 0, 1, 1, 1, 1, 1],
+					[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+					[1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1],
+					[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+			chests: 2
 			}
 };
 
-var TileMap = function(map, tileWidth, tileHeight, scene)
+var TileMap = function(maps, tileWidth, tileHeight, scene)
 {
-	this.hero = null;
-	this.positionIncrement = 16;
+	var maps = maps;
+	var currentMapIndex = 0;
+	var map = maps[currentMapIndex];
+	var hero = null;
+	var positionIncrement = 16;
 	var score = 0;
 
 	var keyboardHandler = function(e) {
 		if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
-			verifyMovements(this.hero, 'left');
+			verifyMovements(hero, 'left');
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
-			verifyMovements(this.hero, 'right');
+			verifyMovements(hero, 'right');
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
-			verifyMovements(this.hero, 'up');
+			verifyMovements(hero, 'up');
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
-			verifyMovements(this.hero, 'down');
+			verifyMovements(hero, 'down');
 		}
 	};
 
@@ -91,7 +107,7 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 	var canMove = function(target, direction) {
 		var nextTile = getNextTileByDirection(target, direction);
 		var nextNextTile = getNextTileByDirection(nextTile, direction);
-		if (nextTile.type == 1 || nextTile.type == 6) return false;
+		if (nextTile.type == 1 || nextTile.type == 6 || nextTile.type == 5) return false;
 		if (nextTile.type == 3 && (nextNextTile.type == 1 || nextNextTile.type == 3 || nextNextTile.type == 6)) return false;
 		return true;
 	};
@@ -116,7 +132,9 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 			map.tiles[newPt.col][newPt.row] = s;
 			//verify end of map
 			score ++;
-			verifyEndOfMap();
+			if (verifyEndOfMap()) {
+				gotoNextMap();
+			}
 		} else {
 			//move the item
 			target.x = newPt.row * tileWidth;
@@ -129,11 +147,20 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 
 	var verifyEndOfMap = function() {
 		if (score == map.chests) {
-			console.log('acabou');
+			return true;
 		}
+		return false;
 	};
 
-	this.load = function(map, tileWidth, tileHeight, scene) {
+	var clearScene = function() {
+		//call the scene.clear in next versions of engine
+		while (scene.childs.length) {
+			scene.removeChildAt(0);
+		}
+		scene.childs = [];
+	};
+
+	var load = function(tileWidth, tileHeight, scene) {
 		score = 0;
 		for (var y = 0; y < map.tiles.length; y++) {
 			for (var x = 0; x < map.tiles[y].length; x++) {
@@ -149,7 +176,7 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 					s.x = x * tileWidth;
 					s.y = y * tileHeight;
 					scene.addChild(s);
-					this.hero = s;
+					hero = s;
 					s.type = 9;
 					map.tiles[y][x] = s;
 				} else if (map.tiles[y][x] == 5) {
@@ -174,9 +201,16 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 		}
 	};
 
+	var gotoNextMap = function() {
+		currentMapIndex ++;
+		map = maps[currentMapIndex];
+		clearScene();
+		load(tileWidth, tileHeight, scene);
+	};
+
 	this.start = function() {
 		core.addEventListener('enterframe', keyboardHandler.bind(this));
 	};
 	
-	this.load(map, tileWidth, tileHeight, scene);
+	load(tileWidth, tileHeight, scene);
 };

@@ -20,8 +20,9 @@
 	  	game.preloadAsset('img/chest_closed.png');
 	  	game.preloadAsset('img/key.png');
 	  	game.addEventListener('load', function(e) {
-	  		var map = new TileMap(Maps.map2, 16, 16, game.rootScene);
-	  		map.start();
+	  		var maps = [Maps.map1, Maps.map2, Maps.map3];
+	  		var tileMapLoader = new TileMap(maps, 16, 16, game.rootScene);
+	  		tileMapLoader.start();
 	  	});
 	  	game.init();
 	  </script>
