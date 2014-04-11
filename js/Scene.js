@@ -47,4 +47,11 @@ var Scene = function(name)
 	this.removeChild = function(child) {
 		this.removeChildAt(this.getChildIndex(child));
 	};
+
+	this.clear = function() {
+		while (this.childs.length) {
+			this.removeChildAt(0);
+		}
+		this.childs = [];
+	};
 }
