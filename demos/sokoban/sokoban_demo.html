@@ -18,10 +18,10 @@
 	  	game.preloadAsset('img/wall.png');
 	  	game.preloadAsset('img/chest_opened.png');
 	  	game.preloadAsset('img/chest_closed.png');
-	  	game.preloadAsset('img/knife.png');
+	  	game.preloadAsset('img/key.png');
 	  	game.addEventListener('load', function(e) {
-	  		var map = new TileMap(Maps.map1, 16, 16, game.rootScene);
-	  		map.startHeroMovement();
+	  		var map = new TileMap(Maps.map2, 16, 16, game.rootScene);
+	  		map.start();
 	  	});
 	  	game.init();
 	  </script>

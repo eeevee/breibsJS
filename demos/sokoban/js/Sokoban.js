@@ -1,61 +1,67 @@
 var Maps = {
-	map1:  [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-			[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-			[1, 5, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-			[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-			[1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 1],
-			[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			[1, 0, 0, 0, 0, 9, 0, 0, 0, 0, 1],
-			[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-			[1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1],
-			[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+	map1:  {
+			tiles: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+					[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+					[1, 5, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+					[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+					[1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 1],
+					[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+					[1, 0, 0, 0, 0, 9, 0, 0, 0, 0, 1],
+					[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+					[1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1],
+					[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+			chests: 1
+			},
+
+	map2:  {
+			tiles: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+					[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+					[1, 0, 0, 3, 1, 0, 3, 0, 0, 0, 1],
+					[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+					[1, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1],
+					[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+					[1, 0, 9, 0, 0, 0, 0, 5, 0, 0, 1],
+					[1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+					[1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1],
+					[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+			chests: 2
+			}
 };
 
 var TileMap = function(map, tileWidth, tileHeight, scene)
 {
 	this.hero = null;
 	this.positionIncrement = 16;
+	var score = 0;
 
 	var keyboardHandler = function(e) {
 		if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Left']]) {
-			if (canMove(this.hero, 'left')) {
-				var nextTile = getNextTileByDirection(this.hero, 'left');
-				if (nextTile.type == 3) {
-					moveItem(nextTile, 'left');
-				}
-				this.hero.x -= this.positionIncrement;
-			}
+			verifyMovements(this.hero, 'left');
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Right']]) {
-			if (canMove(this.hero, 'right')) {
-				var nextTile = getNextTileByDirection(this.hero, 'right');
-				if (nextTile.type == 3) {
-					moveItem(nextTile, 'right');
-				}
-				this.hero.x += this.positionIncrement;
-			}
+			verifyMovements(this.hero, 'right');
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Up']]) {
-			if (canMove(this.hero, 'up')) {
-				var nextTile = getNextTileByDirection(this.hero, 'up');
-				if (nextTile.type == 3) {
-					moveItem(nextTile, 'up');
-				}
-				this.hero.y -= this.positionIncrement;
-			}
+			verifyMovements(this.hero, 'up');
 		} else if (Keyboard.pressedKeys[Keyboard.KEY_CODES['Down']]) {
-			if (canMove(this.hero, 'down')) {
-				var nextTile = getNextTileByDirection(this.hero, 'down');
-				if (nextTile.type == 3) {
-					moveItem(nextTile, 'down');
-				}
-				this.hero.y += this.positionIncrement;
+			verifyMovements(this.hero, 'down');
+		}
+	};
+
+	var verifyMovements = function(target, direction) {
+		if (canMove(target, direction)) {
+			var nextTile = getNextTileByDirection(target, direction);
+			if (nextTile.type == 3) {
+				moveItem(nextTile, direction);
 			}
+			var nextPoint = getNextPointByDirection(target, direction);
+			target.x = nextPoint.row * tileWidth;
+			target.y = nextPoint.col * tileHeight;
 		}
 	};
 
 	var getNextTileByDirection = function(target, direction) {
 		var pt = getNextPointByDirection(target, direction);
-		if (pt.col < 0 || pt.row < 0 || pt.col >= map.length || pt.row >= map[0].length) return;
-		return map[pt.col][pt.row];
+		if (pt.col < 0 || pt.row < 0 || pt.col >= map.tiles.length || pt.row >= map.tiles[0].length) return;
+		return map.tiles[pt.col][pt.row];
 	};
 
 	var getNextPointByDirection = function(target, direction) {
@@ -107,58 +113,68 @@ var TileMap = function(map, tileWidth, tileHeight, scene)
 			scene.addChild(s);
 			s.type = 6;
 			//add the closed chest to map
-			map[newPt.col][newPt.row] = s;
+			map.tiles[newPt.col][newPt.row] = s;
+			//verify end of map
+			score ++;
+			verifyEndOfMap();
 		} else {
 			//move the item
 			target.x = newPt.row * tileWidth;
 			target.y = newPt.col * tileHeight;
-			map[newPt.col][newPt.row] = target;
+			map.tiles[newPt.col][newPt.row] = target;
 		}
 		//clear the old item position
-		map[pt.col][pt.row] = dummy;
+		map.tiles[pt.col][pt.row] = dummy;
+	};
+
+	var verifyEndOfMap = function() {
+		if (score == map.chests) {
+			console.log('acabou');
+		}
 	};
 
 	this.load = function(map, tileWidth, tileHeight, scene) {
-		for (var y = 0; y < map.length; y++) {
-			for (var x = 0; x < map[y].length; x++) {
-				if (map[y][x] == 1) {
+		score = 0;
+		for (var y = 0; y < map.tiles.length; y++) {
+			for (var x = 0; x < map.tiles[y].length; x++) {
+				if (map.tiles[y][x] == 1) {
 					var s = new Sprite(tileWidth, tileHeight, core.assets['img/wall.png']);
 					s.x = x * tileWidth;
 					s.y = y * tileHeight;
 					scene.addChild(s);
 					s.type = 1;
-					map[y][x] = s;
-				} else if (map[y][x] == 9) {
+					map.tiles[y][x] = s;
+				} else if (map.tiles[y][x] == 9) {
 					var s = new Sprite(tileWidth, tileHeight, core.assets['img/wizard.png']);
 					s.x = x * tileWidth;
 					s.y = y * tileHeight;
 					scene.addChild(s);
 					this.hero = s;
 					s.type = 9;
-					map[y][x] = s;
-				} else if (map[y][x] == 5) {
+					map.tiles[y][x] = s;
+				} else if (map.tiles[y][x] == 5) {
 					var s = new Sprite(tileWidth, tileHeight, core.assets['img/chest_opened.png']);
 					s.x = x * tileWidth;
 					s.y = y * tileHeight;
 					scene.addChild(s);
 					s.type = 5;
-					map[y][x] = s;
-				} else if (map[y][x] == 3) {
-					var s = new Sprite(tileWidth, tileHeight, core.assets['img/knife.png']);
+					map.tiles[y][x] = s;
+				} else if (map.tiles[y][x] == 3) {
+					var s = new Sprite(tileWidth, tileHeight, core.assets['img/key.png']);
 					s.x = x * tileWidth;
 					s.y = y * tileHeight;
 					scene.addChild(s);
 					s.type = 3;
-					map[y][x] = s;
+					map.tiles[y][x] = s;
 				} else {
 					var s = {x: x * tileWidth, y: y * tileHeight, type: 0};
-					map[y][x] = s;
+					map.tiles[y][x] = s;
 				}
 			}
 		}
 	};
 
-	this.startHeroMovement = function() {
+	this.start = function() {
 		core.addEventListener('enterframe', keyboardHandler.bind(this));
 	};
 	
