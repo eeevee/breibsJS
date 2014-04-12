@@ -45,14 +45,32 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 	
 	this.preloadAsset = function(pathToAsset) {
-		var img = new Image();
-		img.src = pathToAsset;
-		img.id = pathToAsset;
-		this.preloadAssetsQueue.push(img);
-		img.addEventListener('load', this.imageLoadHandler.bind(this));
+		var extension = pathToAsset.split('.');
+		extension = extension[extension.length - 1];
+		if (extension == 'mp3' || extension == 'ogg' || extension == 'wav') {
+			this.loadAudio(pathToAsset);
+		} else {
+			this.loadImage(pathToAsset);
+		}
 	};
 
-	this.imageLoadHandler = function(e) {
+	this.loadAudio = function(pathToAsset) {
+		var el = new Audio();
+		el.id = pathToAsset;
+		el.src = pathToAsset;
+		el.addEventListener('canplaythrough', this.assetLoadHandler.bind(this));
+		this.preloadAssetsQueue.push(el);
+	};
+
+	this.loadImage = function(pathToAsset) {
+		var el = new Image();
+		el.id = pathToAsset;
+		el.src = pathToAsset;
+		el.addEventListener('load', this.assetLoadHandler.bind(this));
+		this.preloadAssetsQueue.push(el);
+	};
+
+	this.assetLoadHandler = function(e) {
 		this.assets[e.srcElement.id] = e.srcElement;
 		this.removeFromPreloadQueue(e.srcElement);
 		if (this.preloadAssetsQueue.length == 0) {
@@ -67,11 +85,6 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 				break;
 			}
 		}
-	};
-
-	this.loadAsset = function(pathToAsset) {
-		//get the asset type and start load
-		//add to list event the asset not finish load
 	};
 
 	this.addScene = function(scene) {
