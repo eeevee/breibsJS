@@ -608,3 +608,22 @@ asyncTest("When I create a surface, if the addToDocument parameter is false, I d
 		start();
 	}, 50);
 });
+
+/**********************/
+/*     TEXTFIELD      */
+/**********************/
+var txt;
+var fontType = 'Arial';
+var fontSize = 14;
+
+module("TextField", {
+	setup: function() {
+		txt = new TextField('text to render', fontType, fontSize);
+	}, teardown: function() {
+		
+	}
+});
+
+test("When I create a TextField, the getFont need to return the correct value", function() {
+	ok(txt.getFont() == fontSize + 'px ' + fontType);
+});

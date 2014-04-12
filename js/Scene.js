@@ -43,4 +43,15 @@ var Scene = function(name)
 		if (index >= this.childs.length) throw new Error('Index out of bounds');
 		this.childs.splice(index, 1);
 	};
+
+	this.removeChild = function(child) {
+		this.removeChildAt(this.getChildIndex(child));
+	};
+
+	this.clear = function() {
+		while (this.childs.length) {
+			this.removeChildAt(0);
+		}
+		this.childs = [];
+	};
 }
