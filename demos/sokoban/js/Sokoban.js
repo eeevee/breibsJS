@@ -41,7 +41,7 @@ var Maps = {
 			}
 };
 
-var TileMap = function(maps, tileWidth, tileHeight, scene)
+var Sokoban = function(maps, tileWidth, tileHeight, scene)
 {
 	var maps = maps;
 	var currentMapIndex = 0;
@@ -209,7 +209,7 @@ var TileMap = function(maps, tileWidth, tileHeight, scene)
 	};
 
 	this.start = function() {
-		core.addEventListener('enterframe', keyboardHandler.bind(this));
+		core.addEventListener('enterframe', keyboardHandler);
 	};
 	
 	load(tileWidth, tileHeight, scene);

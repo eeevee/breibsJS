@@ -20,6 +20,7 @@
 	  <script src="js/CollisionManager.js"></script>
 	  <script src="js/TextField.js"></script>
 	  <script src="js/SpriteSheet.js"></script>
+	  <script src="js/Group.js"></script>
 	  <script type="text/javascript">
 	  	var game = new Core(300, 300, 30);
 	  	game.preloadAsset('img/wizard_evil.png');
@@ -27,9 +28,17 @@
 	  	game.preloadAsset('img/bg.png');
 	  	game.preloadAsset('img/sprite_sheet.png');
 	  	game.addEventListener('load', function(e) {
-	  		var sheet = new SpriteSheet(32, 48, game.assets['img/sprite_sheet.png'], 9);
-	  		game.rootScene.addChild(sheet);
-	  		console.log(game.rootScene.childs);
+	  		var sheet = new SpriteSheet(32, 48, game.assets['img/sprite_sheet.png'], 4);
+	  		sheet.animations =  {down: {frames: [0, 1, 2, 2, 1, 0]}, up: {frames: [9, 10, 11, 11, 10, 9]}, left: {frames: [3, 4, 5, 5, 4, 3]}, right: {frames: [6, 7, 8, 8, 7, 6]}};
+	  		sheet.setCurrentAnimation('down');
+	  		var group = new Group();
+	  		group.add(new Sprite(16, 16, game.assets['img/wizard_evil.png']));
+	  		group. add(sheet);
+	  		game.rootScene.addChild(group);
+	  		game.addEventListener('enterframe', function(e) {
+	  			group.x += 2;
+	  			//console.log(group.x);
+	  		})
 	  	});
 	  	game.init();
 	  </script>
