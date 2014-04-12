@@ -5,7 +5,7 @@ var Render = function(context)
 
 	this.clear = function() {
 		this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
-	}
+	};
 
 	this.drawScene = function(scene) {
 		if (this.canRender) {
@@ -27,26 +27,65 @@ var Render = function(context)
 					var rotationInRadians = displayObject.rotation * Math.PI / 180;
 					this.context.rotate(rotationInRadians);
 					this.context.translate(-centerX, -centerY);
-					if (displayObject instanceof TextField) {
-						this.context.font = displayObject.getFont();
-						this.context.textAlign = displayObject.textAlign;
-						this.context.fillStyle = displayObject.fontColor;
-						var measure = this.context.measureText(displayObject.text);
-						displayObject.width = measure.width;
-						displayObject.height = measure.height;
-						this.context.fillText(displayObject.text, displayObject.x, displayObject.y);
-					} else if(displayObject instanceof SpriteSheet) {
-						this.context.drawImage(displayObject.image, displayObject.getCol() * displayObject.width, 
-							displayObject.getRow() * displayObject.height, displayObject.width, displayObject.height, displayObject.x, displayObject.y,
-							 displayObject.width, displayObject.height);
-						displayObject.update();
-					} else {
-						this.context.drawImage(displayObject.image, displayObject.x, displayObject.y, displayObject.width, displayObject.height);
-					}
+					this.renderByType(displayObject);
 					this.context.globalAlpha = 1;
 					this.context.restore();
 				}
 			}
 		}
-	}
+	};
+
+	this.renderByType = function(displayObject, group) {
+		if (displayObject instanceof TextField) {
+			this.renderTextField(displayObject, group);
+		} else if(displayObject instanceof SpriteSheet) {
+			this.renderSpriteSheet(displayObject, group);
+		} else if (displayObject instanceof Group) {
+			for (var j = 0; j < displayObject.childs.length; j++) {
+				var child = displayObject.childs[j];
+				this.renderByType(child, displayObject);
+			}
+		} else {
+			this.renderSprite(displayObject, group);
+		}
+	};
+
+	this.renderTextField = function(textField, group) {
+		var x = textField.x;
+		var y = textField.y;
+		if (group) {
+			x += group.x;
+			y += group.y;
+		}
+		this.context.font = textField.getFont();
+		this.context.textAlign = textField.textAlign;
+		this.context.fillStyle = textField.fontColor;
+		var measure = this.context.measureText(textField.text);
+		textField.width = measure.width;
+		textField.height = measure.height;
+		this.context.fillText(textField.text, x, y);
+	};
+
+	this.renderSpriteSheet = function(spriteSheet, group) {
+		var x = spriteSheet.x;
+		var y = spriteSheet.y;
+		if (group) {
+			x += group.x;
+			y += group.y;
+		}
+		this.context.drawImage(spriteSheet.image, spriteSheet.getCol() * spriteSheet.width, 
+			spriteSheet.getRow() * spriteSheet.height, spriteSheet.width, spriteSheet.height, x, y,
+			 spriteSheet.width, spriteSheet.height);
+		spriteSheet.update();
+	};
+
+	this.renderSprite = function(sprite, group) {
+		var x = sprite.x;
+		var y = sprite.y;
+		if (group) {
+			x += group.x;
+			y += group.y;
+		}
+		this.context.drawImage(sprite.image, x, y, sprite.width, sprite.height);
+	};
 }
