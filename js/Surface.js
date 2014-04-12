@@ -11,4 +11,8 @@ var Surface = function(width, height, addToDocument)
 	if (addToDocument) document.body.appendChild(this.canvas);
 
 	this.context = this.canvas.getContext('2d');
+
+	this.backgroundColor = function(color) {
+		this.canvas.style.backgroundColor = color;
+	};
 };
