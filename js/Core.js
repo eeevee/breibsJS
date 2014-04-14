@@ -66,8 +66,9 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 
 	this.assetLoadHandler = function(e) {
-		this.assets[e.srcElement.id] = e.srcElement;
-		this.removeFromPreloadQueue(e.srcElement);
+		var el = e.srcElement || e.target;
+		this.assets[el.id] = el;
+		this.removeFromPreloadQueue(el);
 		if (this.preloadAssetsQueue.length == 0) {
 			this.dispatchEvent(new Event('assetsloaded'));
 		}
