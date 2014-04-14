@@ -2,6 +2,7 @@
 <html>
 	<head>
 	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	  <title>Engine Example</title>
 	</head>
 	<body>
@@ -25,7 +26,7 @@
 	  <script src="js/SoundController.js"></script>
 	  <script type="text/javascript">
 	  	var game = new Core(300, 300, 30);
-	  	game.preloadAsset('music/music.ogg');
+	  	game.preloadAsset('music/music.mp3');
 	  	game.preloadAsset('img/wizard_evil.png');
 	  	game.preloadAsset('img/wizard_evil_no_bg.png');
 	  	game.preloadAsset('img/bg.png');
@@ -41,7 +42,7 @@
 	  		game.addEventListener('enterframe', function(e) {
 	  			group.x += 2;
 	  		});
-	  		var sound = new Sound(game.assets['music/music.ogg']);
+	  		var sound = new Sound(game.assets['music/music.mp3']);
 	  		var soundController = new SoundController();
 	  		//soundController.playBg(sound);
 	  	});
