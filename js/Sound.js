@@ -1,7 +1,7 @@
 var Sound = function(audio) 
 {
 	this.audio = audio;
-	this.currentTime = 360;
+	this.currentTime = 0;
 
 	this.play = function(loop) {
 		if (loop == null) {
