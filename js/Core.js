@@ -24,11 +24,6 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	this.render;
 	this.keyboard;
 
-	//PRIVATE FUNCTIONS
-	var getAssetType = function(pathToAsset) {
-
-	};
-
 	//PRIVILEGED FUNCTIONS
 	this.init = function() {
 		this.rootScene = new Scene('root');
@@ -58,7 +53,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		var el = new Audio();
 		el.id = pathToAsset;
 		el.src = pathToAsset;
-		el.addEventListener('canplaythrough', this.assetLoadHandler.bind(this));
+		el.addEventListener('loadeddata', this.assetLoadHandlerBind);
 		this.preloadAssetsQueue.push(el);
 	};
 
@@ -66,17 +61,20 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		var el = new Image();
 		el.id = pathToAsset;
 		el.src = pathToAsset;
-		el.addEventListener('load', this.assetLoadHandler.bind(this));
+		el.addEventListener('load', this.assetLoadHandlerBind);
 		this.preloadAssetsQueue.push(el);
 	};
 
 	this.assetLoadHandler = function(e) {
-		this.assets[e.srcElement.id] = e.srcElement;
-		this.removeFromPreloadQueue(e.srcElement);
+		var el = e.srcElement || e.target;
+		this.assets[el.id] = el;
+		this.removeFromPreloadQueue(el);
 		if (this.preloadAssetsQueue.length == 0) {
-			this.dispatchEvent(new Event('load'));
+			this.dispatchEvent(new Event('assetsloaded'));
 		}
 	};
+
+	this.assetLoadHandlerBind = this.assetLoadHandler.bind(this);
 
 	this.removeFromPreloadQueue = function(el) {
 		for (var i = 0; i < this.preloadAssetsQueue.length; i++) {
