@@ -132,7 +132,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 
 	var touchStartHandler = function(e) {
-		//e.preventDefault();
+		e.preventDefault();
 		for (var i = 0; i < e.changedTouches.length; i++) {
 			surface.context.beginPath();
 			surface.context.arc(e.changedTouches[i].pageX, e.changedTouches[i].pageY, 4, 0, 2* Math.PI, false);
