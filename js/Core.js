@@ -14,6 +14,11 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	//PRIVATE VARS
 	var scenes = [];
 
+	var pressStartX;
+	var pressStartY;
+	var leaveStartX;
+	var leaveStartY;
+
 	//PUBLIC VARS
 	this.preloadAssetsQueue = [];
 	this.assets = {};
@@ -39,6 +44,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		surface.canvas.addEventListener('mousedown', this.mouseDownHandler.bind(this), true);
 		surface.canvas.addEventListener('touchstart', touchStartHandler.bind(this), false);
 		surface.canvas.addEventListener('touchend', touchEndHandler.bind(this), false);
+		surface.canvas.addEventListener('touchleave', touchEndHandler.bind(this), false);
 	};
 	
 	this.preloadAsset = function(pathToAsset) {
@@ -133,16 +139,37 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 	var touchStartHandler = function(e) {
 		e.preventDefault();
+		var touch = e.changedTouches[0];
+		pressStartX = touch.pageX;
+		pressStartY = touch.pageY;
+		/*
 		for (var i = 0; i < e.changedTouches.length; i++) {
 			surface.context.beginPath();
 			surface.context.arc(e.changedTouches[i].pageX, e.changedTouches[i].pageY, 10, 0, 2* Math.PI, false);
 			surface.context.fillStyle = '#f00';
 			surface.context.fill();
 		}
+		*/
 	};
 
 	var touchEndHandler = function(e) {
 		e.preventDefault();
+		var touch = e.changedTouches[0];
+		leaveStartX = touch.pageX;
+		leaveStartY = touch.pageY;
+		var txt = '';
+		if (leaveStartX > pressStartX) {
+			txt += 'direita : ';
+		} else if (leaveStartX < pressStartX) {
+			txt += 'esquerda : ';
+		}
+
+		if (leaveStartY > pressStartY) {
+			txt += 'baixo : ';
+		} else if (leaveStartY < pressStartY) {
+			txt += 'cima : ';
+		}
+		alert(txt);
 		/*var txt = '';
 		for (var i = 0; i < e.changedTouches.length; i++) {
 			txt += '   ->X:' + e.changedTouches[i].pageX + '->Y:' + e.changedTouches[i].pageY + '     ';
