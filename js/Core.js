@@ -138,6 +138,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 
 	var touchStartHandler = function(e) {
+		e.stopPropagation();
 		e.preventDefault();
 		var touch = e.changedTouches[0];
 		pressStartX = touch.pageX;
@@ -153,6 +154,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 
 	var touchEndHandler = function(e) {
+		e.stopPropagation();
 		e.preventDefault();
 		var touch = e.changedTouches[0];
 		leaveStartX = touch.pageX;
