@@ -41,7 +41,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 		window.addEventListener('keydown', this.keyboardHandler.bind(this), false);
 		window.addEventListener('keyup', this.keyboardHandler.bind(this), false);
-		surface.canvas.addEventListener('mousedown', this.mouseDownHandler.bind(this), true);
+		//surface.canvas.addEventListener('mousedown', this.mouseDownHandler.bind(this), true);
 		surface.canvas.addEventListener('touchstart', touchStartHandler.bind(this), false);
 		surface.canvas.addEventListener('touchend', touchEndHandler.bind(this), false);
 		surface.canvas.addEventListener('touchleave', touchEndHandler.bind(this), false);
