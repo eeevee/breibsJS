@@ -137,7 +137,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		for (var i = 0; i < e.changedTouches.length; i++) {
 			surface.context.beginPath();
 			surface.context.arc(e.changedTouches[i].pageX, e.changedTouches[i].pageY, 4, 0, 2* Math.PI, false);
-			surface.context.fillStyle = Math.random() * 512;
+			surface.context.fillStyle = '#f00';
 			surface.context.fill();
 		}
 	};
