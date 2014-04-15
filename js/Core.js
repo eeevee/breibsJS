@@ -41,7 +41,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 		window.addEventListener('keydown', this.keyboardHandler.bind(this), false);
 		window.addEventListener('keyup', this.keyboardHandler.bind(this), false);
-		//surface.canvas.addEventListener('mousedown', this.mouseDownHandler.bind(this), true);
+		surface.canvas.addEventListener('mousedown', this.mouseDownHandler.bind(this), true);
 		surface.canvas.addEventListener('touchstart', touchStartHandler.bind(this), false);
 		surface.canvas.addEventListener('touchend', touchEndHandler.bind(this), false);
 		surface.canvas.addEventListener('touchleave', touchEndHandler.bind(this), false);
@@ -139,7 +139,6 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 	var touchStartHandler = function(e) {
 		e.stopPropagation();
-		e.preventDefault();
 		var touch = e.changedTouches[0];
 		pressStartX = touch.pageX;
 		pressStartY = touch.pageY;
@@ -155,7 +154,6 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 	var touchEndHandler = function(e) {
 		e.stopPropagation();
-		e.preventDefault();
 		var touch = e.changedTouches[0];
 		leaveStartX = touch.pageX;
 		leaveStartY = touch.pageY;
