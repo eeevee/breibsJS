@@ -137,8 +137,8 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 	var touchEndHandler = function(e) {
 		var txt = '';
-		for (var key in e) {
-			txt += ' -' + key + '->' + e[key] + '  :::  '
+		for (var i = 0; i < e.changedTouches.length; i++) {
+			txt += '   ->X:' + e.changedTouches[i].pageX + '->Y:' + e.changedTouches[i].pageY + '     ';
 		}
 		alert(txt);
 	};
