@@ -127,9 +127,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	//USER INPUTS
 	this.keyboardHandler = function(e) {
 		this.dispatchEvent(e);
-		if (e.type == 'keydown') {
-			alert('okokok');
-		}
+		alert(e);
 	};
 
 	this.mouseDownHandler = function(e) {
