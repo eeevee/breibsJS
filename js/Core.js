@@ -171,8 +171,8 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		if (Math.abs(diffX) > Math.abs(diffY)) {
 			if (touchLeaveX > touchStartX) {
 				evt.keyCode = Keyboard.KEY_CODES['Right'];
-				
-			alert(Keyboard.KEY_CODES['Right']);
+
+			alert(evt);
 			} else if (touchLeaveX < touchStartX) {
 				evt.keyCode = Keyboard.KEY_CODES['Left'];
 			}
