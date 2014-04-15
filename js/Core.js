@@ -164,27 +164,25 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		var diffX = touchLeaveX - touchStartX;
 		var diffY = touchLeaveY - touchStartY;
 
-		var txt = '';
+		var evt = new KeyboardEvent('keydown');
+		delete evt.keyCode;
 
 		if (Math.abs(diffX) > Math.abs(diffY)) {
 			if (touchLeaveX > touchStartX) {
-			txt = 'direita : ';
+				evt.keyCode = Keyboard.KEY_CODES['Right'];
 			} else if (touchLeaveX < touchStartX) {
-				txt = 'esquerda : ';
+				evt.keyCode = Keyboard.KEY_CODES['Left'];
 			}
 		} else {
 			if (touchLeaveY > touchStartY) {
-				txt = 'baixo : ';
+				evt.keyCode = Keyboard.KEY_CODES['Down'];
 			} else if (touchLeaveY < touchStartY) {
-				txt = 'cima : ';
+				evt.keyCode = Keyboard.KEY_CODES['Up'];
 			}
 		}
 
-		if (txt != '') alert(txt);
-		/*var txt = '';
-		for (var i = 0; i < e.changedTouches.length; i++) {
-			txt += '   ->X:' + e.changedTouches[i].pageX + '->Y:' + e.changedTouches[i].pageY + '     ';
+		if (evt.keyCode) {
+			window.dispatchEvent(evt);
 		}
-		alert(txt);*/
 	};
 }
