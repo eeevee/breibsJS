@@ -133,14 +133,20 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 	var touchStartHandler = function(e) {
 		e.preventDefault();
+		for (var i = 0; i < e.changedTouches.length; i++) {
+			surface.context.beginPath();
+			surface.context.arc(e.changedTouches[i].pageX, e.changedTouches[i].pageY, 4, 0, 2* Math.PI, false);
+			surface.context.fillStyle = Math.random() * 512;
+			surface.context.fill();
+		}
 	};
 
 	var touchEndHandler = function(e) {
 		e.preventDefault();
-		var txt = '';
+		/*var txt = '';
 		for (var i = 0; i < e.changedTouches.length; i++) {
 			txt += '   ->X:' + e.changedTouches[i].pageX + '->Y:' + e.changedTouches[i].pageY + '     ';
 		}
-		alert(txt);
+		alert(txt);*/
 	};
 }
