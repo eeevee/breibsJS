@@ -172,7 +172,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 				var evt = new KeyboardEvent('keydown');
 				delete evt.keyCode;
 				evt.keyCode = keyCode;
-				window.dispatchEvent(evt);
+				this.dispatchEvent(evt);
 
 				alert(evt);
 			} else if (touchLeaveX < touchStartX) {
