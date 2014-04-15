@@ -170,9 +170,8 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		if (Math.abs(diffX) > Math.abs(diffY)) {
 			if (touchLeaveX > touchStartX) {
 				alert('okoko');
-				var evt = new Event('keydown');
-				evt.keyCode = keyCode;
-				
+				var evt = {type: 'keydown', keyCode: Keyboard.KEY_CODES['Right']};
+
 				alert(evt);
 				window.dispatchEvent(evt);
 
