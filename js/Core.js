@@ -14,10 +14,10 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	//PRIVATE VARS
 	var scenes = [];
 
-	var pressStartX;
-	var pressStartY;
-	var leaveStartX;
-	var leaveStartY;
+	var touchStartX;
+	var touchStartY;
+	var touchLeaveX;
+	var touchLeaveY;
 
 	//PUBLIC VARS
 	this.preloadAssetsQueue = [];
@@ -139,9 +139,10 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 	var touchStartHandler = function(e) {
 		e.stopPropagation();
+		e.preventDefault();
 		var touch = e.changedTouches[0];
-		pressStartX = touch.pageX;
-		pressStartY = touch.pageY;
+		touchStartX = touch.pageX;
+		touchStartY = touch.pageY;
 		/*
 		for (var i = 0; i < e.changedTouches.length; i++) {
 			surface.context.beginPath();
@@ -154,22 +155,32 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 	var touchEndHandler = function(e) {
 		e.stopPropagation();
+		e.preventDefault();
+
 		var touch = e.changedTouches[0];
-		leaveStartX = touch.pageX;
-		leaveStartY = touch.pageY;
+		touchLeaveX = touch.pageX;
+		touchLeaveY = touch.pageY;
+
+		var diffX = touchLeaveX - touchStartX;
+		var diffY = touchLeaveY - touchStartY;
+
 		var txt = '';
-		if (leaveStartX > pressStartX) {
-			txt += 'direita : ';
-		} else if (leaveStartX < pressStartX) {
-			txt += 'esquerda : ';
+
+		if (Math.abs(diffX) > Math.abs(diffY)) {
+			if (touchLeaveX > touchStartX) {
+			txt = 'direita : ';
+			} else if (touchLeaveX < touchStartX) {
+				txt = 'esquerda : ';
+			}
+		} else {
+			if (touchLeaveY > touchStartY) {
+				txt = 'baixo : ';
+			} else if (touchLeaveY < touchStartY) {
+				txt = 'cima : ';
+			}
 		}
 
-		if (leaveStartY > pressStartY) {
-			txt += 'baixo : ';
-		} else if (leaveStartY < pressStartY) {
-			txt += 'cima : ';
-		}
-		alert(txt);
+		if (txt != '') alert(txt);
 		/*var txt = '';
 		for (var i = 0; i < e.changedTouches.length; i++) {
 			txt += '   ->X:' + e.changedTouches[i].pageX + '->Y:' + e.changedTouches[i].pageY + '     ';
