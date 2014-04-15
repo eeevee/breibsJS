@@ -136,6 +136,10 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 
 	var touchEndHandler = function(e) {
-		alert(e);
+		var txt = '';
+		for (var key in e) {
+			txt += ' -' + key + '->' + e[key] + '  :::  '
+		}
+		alert(txt);
 	};
 }
