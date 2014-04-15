@@ -182,8 +182,8 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 			}
 		}
 
-		if (evt.keyCode) {
 			alert(evt.keyCode);
+		if (evt.keyCode) {
 			window.dispatchEvent(evt);
 		}
 	};
