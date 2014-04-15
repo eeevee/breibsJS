@@ -132,10 +132,11 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	};
 
 	var touchStartHandler = function(e) {
-
+		e.preventDefault();
 	};
 
 	var touchEndHandler = function(e) {
+		e.preventDefault();
 		var txt = '';
 		for (var i = 0; i < e.changedTouches.length; i++) {
 			txt += '   ->X:' + e.changedTouches[i].pageX + '->Y:' + e.changedTouches[i].pageY + '     ';
