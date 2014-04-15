@@ -126,7 +126,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 	//USER INPUTS
 	this.keyboardHandler = function(e) {
-		console.log(e);
+		alert(e);
 		this.dispatchEvent(e);
 	};
 
