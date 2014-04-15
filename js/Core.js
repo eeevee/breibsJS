@@ -127,6 +127,9 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 	//USER INPUTS
 	this.keyboardHandler = function(e) {
 		this.dispatchEvent(e);
+		if (e.type == 'keydown') {
+			alert('okokok');
+		}
 	};
 
 	this.mouseDownHandler = function(e) {
@@ -169,10 +172,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 
 		if (Math.abs(diffX) > Math.abs(diffY)) {
 			if (touchLeaveX > touchStartX) {
-				alert('okoko');
 				var evt = {type: 'keydown', keyCode: Keyboard.KEY_CODES['Right']};
-
-				alert(evt);
 				window.dispatchEvent(evt);
 
 			} else if (touchLeaveX < touchStartX) {
