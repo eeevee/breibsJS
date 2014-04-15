@@ -1,6 +1,12 @@
 js game engine
 ___
 ___
+##Version 0.2.1
+___
+- Added simple support to touch events
+
+___
+___
 ##Version 0.2
 ___
 - Added Sound class
