@@ -172,9 +172,10 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 				alert('okoko');
 				var evt = new Event('keydown');
 				evt.keyCode = keyCode;
+				
+				alert(evt);
 				window.dispatchEvent(evt);
 
-				alert(evt);
 			} else if (touchLeaveX < touchStartX) {
 				evt.keyCode = Keyboard.KEY_CODES['Left'];
 			}
