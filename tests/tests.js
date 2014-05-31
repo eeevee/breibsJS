@@ -49,10 +49,10 @@ test("When I try to change to a scene that not exists, the Core need to throw a 
 	);
 });
 
-asyncTest("When I preload a image, when the image load finished, i need to retrive the image", function() {
+asyncTest("When I preload a image, when the image load finished, i need to retrieve the image", function() {
 	expect(1);
 
-	core.addEventListener('load', function(e) {
+	core.addEventListener('assetsloaded', function(e) {
 		ok(core.assets['../img/wizard_evil.png']);
 		start();
 	});
