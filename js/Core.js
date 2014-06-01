@@ -32,9 +32,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		surface = new Surface(this.gameWidth, this.gameHeight);
 		this.render = new Render(surface.context);
 		this.keyboard = new Keyboard();
-		this.interval = setTimeout(function(){
-			core.tick.bind(core);
-		}, 1000 / GAME_FPS);
+		this.interval = setTimeout(this.tick.bind(this), 1000 / GAME_FPS);
 
 		window.addEventListener('keydown', this.keyboardHandler.bind(this), false);
 		window.addEventListener('keyup', this.keyboardHandler.bind(this), false);
