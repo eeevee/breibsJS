@@ -61,7 +61,7 @@ asyncTest("When I preload a image, when the image load finished, i need to retri
 
 asyncTest("When I click in a sprite inside canvas, the sprite must receive the click", function() {
 	expect(1);
-	core.addEventListener('load', function(e) {
+	core.addEventListener('assetsloaded', function(e) {
 		var sprite = new Sprite(30,30);
 		sprite.image = core.assets['../img/wizard_evil.png'];
 		sprite.addEventListener('mousedown', function(e) {
@@ -534,11 +534,11 @@ test("When a point is outside a sprite1, I need to know that a collision don't o
 asyncTest("When two sprites pixel collides, I need to know that the collision occurred", function() {
 	expect(1);
 
-	core.addEventListener('load', function(e) {
+	core.addEventListener('assetsloaded', function(e) {
 		sprite1.image = core.assets['../img/wizard_evil_no_bg.png'];
 		sprite2.image = core.assets['../img/wizard_evil.png'];
-		sprite1.width = 24;
-		sprite1.height = 24;
+		sprite1.width = 60;
+		sprite1.height = 60;
 		sprite1.x = 50;
 		sprite1.y = 15;
 		sprite2.width = 32;
@@ -620,10 +620,9 @@ module("TextField", {
 	setup: function() {
 		txt = new TextField('text to render', fontType, fontSize);
 	}, teardown: function() {
-		
 	}
 });
 
 test("When I create a TextField, the getFont need to return the correct value", function() {
-	ok(txt.getFont() == fontSize + 'px ' + fontType);
+	ok(txt.getFont() == fontSize + 'pt ' + fontType);
 });

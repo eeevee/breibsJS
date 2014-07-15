@@ -113,7 +113,7 @@ var Core = function(gameWidth, gameHeight, gameFPS)
 		this.interval = setTimeout(this.tick.bind(this), 1000 / GAME_FPS);
 		var e = new Event('enterframe');
 		this.dispatchEvent(e);
-		this.currentScene.dispatchEvent(e);
+		if (this.currentScene) this.currentScene.dispatchEvent(e);
 	};
 
 	//USER INPUTS

@@ -4,8 +4,312 @@
 		"selected_items":
 		[
 			[
+				"loa",
+				"loadImage"
+			],
+			[
+				"re",
+				"renderByType"
+			],
+			[
+				"text",
+				"TextField"
+			],
+			[
+				"rende",
+				"renderByType"
+			],
+			[
+				"ren",
+				"renderSprite"
+			],
+			[
 				"add",
 				"addEventListener"
+			],
+			[
+				"ne",
+				"nextNextTile"
+			],
+			[
+				"nex",
+				"nextTile"
+			],
+			[
+				"next",
+				"nextNextTile"
+			],
+			[
+				"get",
+				"getNextTileByDirection"
+			],
+			[
+				"col",
+				"background-color"
+			],
+			[
+				"st",
+				"style	Tag"
+			],
+			[
+				"til",
+				"tileHeight"
+			],
+			[
+				"anim",
+				"animationCount"
+			],
+			[
+				"anima",
+				"animation"
+			],
+			[
+				"curr",
+				"currentFrame"
+			],
+			[
+				"ani",
+				"animations"
+			],
+			[
+				"cu",
+				"currentAnimation"
+			],
+			[
+				"cha",
+				"changeScene"
+			],
+			[
+				"gam",
+				"gameScene"
+			],
+			[
+				"wi",
+				"wiz2"
+			],
+			[
+				"Sce",
+				"Scene"
+			],
+			[
+				"sco",
+				"scoreLabel"
+			],
+			[
+				"scor",
+				"scoreLabel"
+			],
+			[
+				"score",
+				"scoreLabel"
+			],
+			[
+				"bull",
+				"bullet"
+			],
+			[
+				"bul",
+				"bullet"
+			],
+			[
+				"inde",
+				"index"
+			],
+			[
+				"bu",
+				"bullet"
+			],
+			[
+				"Sp",
+				"Sprite"
+			],
+			[
+				"cen",
+				"centerY"
+			],
+			[
+				"font",
+				"fontSize"
+			],
+			[
+				"remo",
+				"removeEventListener"
+			],
+			[
+				"time",
+				"timeoutId"
+			],
+			[
+				"cle",
+				"clearTimeout"
+			],
+			[
+				"te",
+				"textAlign"
+			],
+			[
+				"fon",
+				"font"
+			],
+			[
+				"fo",
+				"font"
+			],
+			[
+				"_ori",
+				"_originalHeight"
+			],
+			[
+				"spri",
+				"sprite2"
+			],
+			[
+				"bo",
+				"boxCollides"
+			],
+			[
+				"colli",
+				"collision"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"tar",
+				"target"
+			],
+			[
+				"pixe",
+				"pixelPerfectCollides"
+			],
+			[
+				"pix",
+				"pixel"
+			],
+			[
+				"ad",
+				"addChild"
+			],
+			[
+				"pixel",
+				"pixel2"
+			],
+			[
+				"targ",
+				"targetImageData"
+			],
+			[
+				"calcu",
+				"calculateIntersection"
+			],
+			[
+				"_rende",
+				"_renderTarget"
+			],
+			[
+				"_colli",
+				"_collisionSceneTarget"
+			],
+			[
+				"_col",
+				"_collisionSurfaceTarget"
+			],
+			[
+				"_co",
+				"_collisionSurface"
+			],
+			[
+				"chi",
+				"childs"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"p",
+				"pixel1"
+			],
+			[
+				"my",
+				"myImageData"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"scale",
+				"scaleTo"
+			],
+			[
+				"tween",
+				"tweenTarget"
+			],
+			[
+				"gets",
+				"getScaleY"
+			],
+			[
+				"sprite",
+				"sprite1"
+			],
+			[
+				"set",
+				"setup"
+			],
+			[
+				"_orig",
+				"_originalWidth"
+			],
+			[
+				"poin",
+				"pointCollides"
+			],
+			[
+				"child",
+				"childsUnderPoint"
+			],
+			[
+				"sca",
+				"scaleY"
+			],
+			[
+				"ca",
+				"cancelBubble"
+			],
+			[
+				"cli",
+				"clickPoint"
+			],
+			[
+				"start",
+				"startValue"
+			],
+			[
+				"finis",
+				"finishedTween"
+			],
+			[
+				"fini",
+				"finishedTween"
+			],
+			[
+				"in",
+				"index"
+			],
+			[
+				"pro",
+				"properties"
+			],
+			[
+				"prop",
+				"_properties"
+			],
+			[
+				"KEY",
+				"KEY_CODES"
 			],
 			[
 				"Scene",
@@ -14,18 +318,6 @@
 			[
 				"prev",
 				"prevSprite3Index"
-			],
-			[
-				"nex",
-				"nextSprite3Index"
-			],
-			[
-				"get",
-				"getChildIndex"
-			],
-			[
-				"spri",
-				"sprite1"
 			],
 			[
 				"root",
@@ -62,55 +354,11 @@
 			[
 				"t",
 				"this"
-			],
-			[
-				"ca",
-				"canvas	Tag"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "js/Core.js",
-			"settings":
-			{
-				"buffer_size": 2435,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/Scene.js",
-			"settings":
-			{
-				"buffer_size": 759,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/Render.js",
-			"settings":
-			{
-				"buffer_size": 785,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "index.html",
-			"settings":
-			{
-				"buffer_size": 1588,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "tests/tests.js",
-			"settings":
-			{
-				"buffer_size": 4353,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -147,16 +395,37 @@
 	},
 	"file_history":
 	[
-		"/D/Pedro/projetos/js_game_engine/js/Keyboard.js",
-		"/D/Pedro/projetos/js_game_engine/tests/tests.html",
-		"/D/Pedro/projetos/js_game_engine/js/SceneException.js",
+		"/D/Pedro/projetos/js_game_engine/demos/sokoban/sokoban_demo.html",
+		"/D/Pedro/projetos/js_game_engine/index.html",
+		"/D/Pedro/projetos/js_game_engine/js/Core.js",
+		"/D/Pedro/projetos/js_game_engine/demos/sokoban/js/Sokoban.js",
+		"/D/Pedro/projetos/js_game_engine/js/Sound.js",
+		"/D/Pedro/projetos/js_game_engine/README.md",
+		"/D/Pedro/projetos/js_game_engine/js/Group.js",
+		"/D/Pedro/projetos/js_game_engine/js/Surface.js",
+		"/D/Pedro/projetos/js_game_engine/js/Render.js",
+		"/D/Pedro/projetos/js_game_engine/js/SpriteSheet.js",
+		"/D/Pedro/projetos/js_game_engine/demos/spritesheet/sprite_sheet_demo.html",
+		"/D/Pedro/projetos/js_game_engine/js/Sprite.js",
+		"/D/Pedro/projetos/js_game_engine/tests/tests.js",
+		"/D/Pedro/projetos/js_game_engine/demos/space/space_demo.html",
+		"/D/Pedro/projetos/js_game_engine/demos/space/js/Knife.js",
+		"/D/Pedro/projetos/js_game_engine/demos/space/js/GameScene.js",
+		"/D/Pedro/projetos/js_game_engine/demos/space/engine-0.1.6.min.js",
+		"/D/Pedro/projetos/js_game_engine/space_demo.html",
+		"/D/Pedro/projetos/js_game_engine/demos/space/js/Wizard.js",
 		"/D/Pedro/projetos/js_game_engine/js/DisplayObject.js",
+		"/D/Pedro/projetos/js_game_engine/js/TextField.js",
+		"/D/Pedro/projetos/js_game_engine/tests/tests.html",
+		"/D/Pedro/projetos/js_game_engine/js/CollisionManager.js",
+		"/D/Pedro/projetos/js_game_engine/js/Scene.js",
+		"/D/Pedro/projetos/js_game_engine/js/Tween.js",
+		"/D/Pedro/projetos/js_game_engine/js/Engine.js",
+		"/D/Pedro/projetos/js_game_engine/js/Keyboard.js",
+		"/D/Pedro/projetos/js_game_engine/js/SceneException.js",
 		"/D/Pedro/projetos/js/spaceship/js/Actors.js",
 		"/D/Pedro/projetos/js/spaceship/js/Game.js",
-		"/D/Pedro/projetos/js_game_engine/js/Scene.js",
 		"/D/Pedro/projetos/js/spaceship/js/Render.js",
-		"/D/Pedro/projetos/js_game_engine/js/Sprite.js",
-		"/D/Pedro/projetos/js_game_engine/js/Surface.js",
 		"/D/Pedro/projetos/js/snake/js/Render.js",
 		"/D/Pedro/projetos/js_game_engine/js/EventDispatcher.js",
 		"/D/Pedro/projetos/js_game_engine/js/CoreException.js",
@@ -173,13 +442,14 @@
 	],
 	"find":
 	{
-		"height": 46.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
+			".width"
 		]
 	},
 	"find_state":
@@ -187,6 +457,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"assets",
+			"myImageData",
+			"hh",
+			"hw",
+			"cy",
+			"cx",
+			"];\n",
+			"_collisionScene",
+			"_render",
+			"_collisionSurface",
+			"getHeight()",
+			"getWidth()",
+			"this.width",
+			"fps",
+			"left",
 			");\n",
 			"start",
 			";\n"
@@ -197,6 +482,17 @@
 		"regex": false,
 		"replace_history":
 		[
+			"sourceImageData",
+			"halfHeight",
+			"halfWidth",
+			"centerY",
+			"centerX",
+			"_collisionSceneSource",
+			"_renderSource",
+			"_collisionSurfaceSource",
+			"height",
+			"width",
+			""
 		],
 		"reverse": false,
 		"show_context": true,
@@ -207,154 +503,8 @@
 	"groups":
 	[
 		{
-			"selected": 3,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "js/Core.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2435,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1626,
-								1626
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 381.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "js/Scene.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 759,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								708,
-								708
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/Render.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 785,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								639,
-								639
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1588,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1180,
-								1180
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 244.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "tests/tests.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4353,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2408,
-								2408
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1022.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -396,7 +546,7 @@
 	"project": "engine.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
