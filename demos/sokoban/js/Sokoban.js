@@ -90,7 +90,8 @@ var Sokoban = function(maps, tileWidth, tileHeight, scene)
 			//verify end of map
 			score ++;
 			if (verifyEndOfMap()) {
-				gotoNextMap();
+				showEndOfMapScreen();
+				//gotoNextMap();
 			}
 		} else {
 			//move the item
@@ -156,6 +157,10 @@ var Sokoban = function(maps, tileWidth, tileHeight, scene)
 				}
 			}
 		}
+	};
+
+	var showEndOfMapScreen = function() {
+
 	};
 
 	var gotoNextMap = function() {
