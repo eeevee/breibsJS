@@ -11,9 +11,10 @@
 	</head>
 	<body>
 	  <script src="js/engine-0.1.7.min.js"></script>
+	  <script src="js/Maps.js"></script>
 	  <script src="js/Sokoban.js"></script>
 	  <script type="text/javascript">
-	  	var game = new Core(320, 320, 8);
+	  	var game = new Core(640, 480, 8);
 	  	game.preloadAsset('img/wizard.png');
 	  	game.preloadAsset('img/wall.png');
 	  	game.preloadAsset('img/chest_opened.png');
@@ -21,7 +22,7 @@
 	  	game.preloadAsset('img/key.png');
 	  	game.addEventListener('load', function(e) {
 	  		var maps = [Maps.map1, Maps.map2, Maps.map3];
-	  		var sokoban = new Sokoban(maps, 16, 16, game.rootScene);
+	  		var sokoban = new Sokoban(maps, 32, 32, game.rootScene);
 	  		sokoban.start();
 	  	});
 	  	game.init();
