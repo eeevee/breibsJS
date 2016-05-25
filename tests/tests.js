@@ -626,3 +626,27 @@ module("TextField", {
 test("When I create a TextField, the getFont need to return the correct value", function() {
 	ok(txt.getFont() == fontSize + 'pt ' + fontType);
 });
+
+/**********************/
+/*    MEMORYCARD      */
+/**********************/
+var mc;
+var mcKey = 'key';
+var mcValue = 'value';
+var mcObj = {'field1': 'value1', 'field2' : 'value2'};
+module("MemoryCard", {
+	setup: function() {
+		mc = new MemoryCard();
+	}, teardown: function() {
+	}
+});
+
+test("When I save a string, I need to get the correct value", function() {
+	mc.saveString(mcKey, mcValue);
+	ok(mc.getString(mcKey) == mcValue);
+});
+
+test("When I save a object, I need to get the correct object", function() {
+	mc.saveObject(mcKey, mcObj);
+	deepEqual(mc.getObject(mcKey), mcObj);
+});
