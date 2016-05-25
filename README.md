@@ -1,6 +1,12 @@
 js game engine
 ___
 ___
+##Version 0.2.5
+
+- MemoryCard
+	- Can save a string or a object
+___
+___
 ##Version 0.2
 ___
 - Added Sound class
