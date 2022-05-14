@@ -22,9 +22,9 @@
 	  <script src="../../js/SpriteSheet.js"></script>
 	  <script type="text/javascript">
 	  	var game = new Core(300, 300, 30);
-	  	game.preloadAsset('img/sprite_sheet.png');
-	  	game.addEventListener('load', function(e) {
-	  		var sheet = new SpriteSheet(32, 48, game.assets['img/sprite_sheet.png'], 4);
+	  	game.preloadAsset('./img/sprite_sheet.png');
+	  	game.addEventListener('assetsloaded', function(e) {
+	  		var sheet = new SpriteSheet(32, 48, game.assets['./img/sprite_sheet.png'], 4);
 	  		sheet.animations =  {down: {frames: [0, 1, 2, 2, 1, 0]}, up: {frames: [9, 10, 11, 11, 10, 9]}, left: {frames: [3, 4, 5, 5, 4, 3]}, right: {frames: [6, 7, 8, 8, 7, 6]}};
 	  		game.rootScene.addChild(sheet);
 

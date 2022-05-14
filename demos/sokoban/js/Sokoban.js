@@ -91,7 +91,7 @@ var Sokoban = function(maps, tileWidth, tileHeight, scene)
 			score ++;
 			if (verifyEndOfMap()) {
 				showEndOfMapScreen();
-				//gotoNextMap();
+				// gotoNextMap();
 			}
 		} else {
 			//move the item
